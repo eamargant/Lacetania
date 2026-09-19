@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tasca 1 – Exercicis JavaScript</title>
+</head>
+<body>
+
+<h1>Exercicis JavaScript – Tasca 1</h1>
+
+<button onclick="exercici1()">1. Comparació de dos nombres</button>
+<button onclick="exercici2()">2. Mitjana i acumulat de nombres positius</button>
+<button onclick="exercici3()">3. Taula de multiplicar</button>
+<button onclick="exercici4()">4. Calculadora</button>
+
+<script>
+
+  /* ── Exercici 1 ── */
+  function exercici1() {
+    var a, b;
+
+    do {
+      a = prompt("Introdueix el primer nombre (positiu):");
+      if (a === null) return;
+    } while (isNaN(a) || Number(a) < 0);
+
+    do {
+      b = prompt("Introdueix el segon nombre (positiu):");
+      if (b === null) return;
+    } while (isNaN(b) || Number(b) < 0);
+
+    a = Number(a);
+    b = Number(b);
+
+    if (a === b) {
+      alert("Els dos nombres són iguals: " + a);
+    } else if (a > b) {
+      alert("El nombre més gran és: " + a + "\nEl nombre més petit és: " + b);
+    } else {
+      alert("El nombre més gran és: " + b + "\nEl nombre més petit és: " + a);
+    }
+  }
+
+  /* ── Exercici 2 ── */
+  function exercici2() {
+    var acumulat = 0;
+    var count = 0;
+
+    while (true) {
+      var entrada = prompt("Introdueix un nombre (negatiu per acabar):");
+      if (entrada === null) break;
+
+      if (isNaN(entrada)) {
+        alert("Has d'introduir un nombre vàlid.");
+        continue;
+      }
+
+      var num = Number(entrada);
+      if (num < 0) break;
+
+      acumulat += num;
+      count++;
+    }
+
+    if (count === 0) {
+      alert("No has introduït cap nombre positiu.");
+    } else {
+      var mitjana = acumulat / count;
+      alert(
+        "Nombres introduïts: " + count +
+        "\nAcumulat: " + acumulat +
+        "\nMitjana: " + mitjana.toFixed(2)
+      );
+    }
+  }
+
+  /* ── Exercici 3 ── */
+  function exercici3() {
+    var n;
+
+    do {
+      n = prompt("Introdueix un nombre entre 1 i 10 per veure la taula de multiplicar:");
+      if (n === null) return;
+      n = Number(n);
+    } while (isNaN(n) || n < 1 || n > 10 || !Number.isInteger(n));
+
+    var resultat = "Taula de multiplicar del " + n + ":\n\n";
+    for (var i = 1; i <= 10; i++) {
+      resultat += n + " x " + i + " = " + (n * i) + "\n";
+    }
+    alert(resultat);
+  }
+
+  /* ── Exercici 4 ── */
+  function exercici4() {
+    var a, b;
+
+    do {
+      a = prompt("Introdueix el primer nombre:");
+      if (a === null) return;
+    } while (isNaN(a));
+
+    do {
+      b = prompt("Introdueix el segon nombre:");
+      if (b === null) return;
+    } while (isNaN(b));
+
+    a = Number(a);
+    b = Number(b);
+
+    var op;
+    do {
+      op = prompt("Introdueix l'operació aritmètica (+  -  *  /  %):");
+      if (op === null) return;
+      op = op.trim();
+    } while (!["+", "-", "*", "/", "%"].includes(op));
+
+    var resultat;
+    switch (op) {
+      case "+": resultat = a + b; break;
+      case "-": resultat = a - b; break;
+      case "*": resultat = a * b; break;
+      case "/":
+        if (b === 0) {
+          alert("No es pot dividir per zero.");
+          return;
+        }
+        resultat = a / b;
+        break;
+      case "%":
+        if (b === 0) {
+          alert("No es pot fer el mòdul per zero.");
+          return;
+        }
+        resultat = a % b;
+        break;
+    }
+
+    alert(a + " " + op + " " + b + " = " + resultat);
+  }
+
+</script>
+</body>
+</html>
