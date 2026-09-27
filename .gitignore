@@ -1,1 +1,10 @@
 *Zone.Identifier*
+
+# Configuració de Claude (fitxers i carpetes .claude a qualsevol subcarpeta)
+.claude
+
+# Fitxers Markdown
+*.md
+
+# Fitxers comprimits
+*.zip
