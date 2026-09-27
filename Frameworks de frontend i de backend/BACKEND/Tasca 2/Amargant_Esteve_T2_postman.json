@@ -1,0 +1,317 @@
+{
+  "info": {
+    "name": "Users Management",
+    "description": "Pràctica T2: Gestió d'usuaris amb ReqRes (OP1-B1-NODE)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      { "key": "key", "value": "x-api-key", "type": "string" },
+      { "key": "value", "value": "reqres-free-v1", "type": "string" },
+      { "key": "in", "value": "header", "type": "string" }
+    ]
+  },
+  "variable": [
+    { "key": "base_url", "value": "https://reqres.in/api", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Consultes",
+      "item": [
+        {
+          "name": "Llistar usuaris (pàgina 1)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/users?page=1",
+              "host": ["{{base_url}}"],
+              "path": ["users"],
+              "query": [{ "key": "page", "value": "1" }]
+            }
+          }
+        },
+        {
+          "name": "Obtenir usuari 2",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/users/2",
+              "host": ["{{base_url}}"],
+              "path": ["users", "2"]
+            }
+          }
+        },
+        {
+          "name": "Llistar recursos (unknown)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/unknown",
+              "host": ["{{base_url}}"],
+              "path": ["unknown"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Creació",
+      "item": [
+        {
+          "name": "Crear usuari",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Marc\",\n    \"job\": \"developer\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/users",
+              "host": ["{{base_url}}"],
+              "path": ["users"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Actualitzacions",
+      "item": [
+        {
+          "name": "Actualitzar usuari 2 (PUT)",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Marc\",\n    \"job\": \"senior developer\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/users/2",
+              "host": ["{{base_url}}"],
+              "path": ["users", "2"]
+            }
+          }
+        },
+        {
+          "name": "Modificar job usuari 2 (PATCH)",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"job\": \"tech lead\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/users/2",
+              "host": ["{{base_url}}"],
+              "path": ["users", "2"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Eliminació",
+      "item": [
+        {
+          "name": "Eliminar usuari 2",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/users/2",
+              "host": ["{{base_url}}"],
+              "path": ["users", "2"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Autenticació",
+      "item": [
+        {
+          "name": "Registre",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"eve.holt@reqres.in\",\n    \"password\": \"pistol\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/register",
+              "host": ["{{base_url}}"],
+              "path": ["register"]
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"eve.holt@reqres.in\",\n    \"password\": \"pistol\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/login",
+              "host": ["{{base_url}}"],
+              "path": ["login"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reptes",
+      "item": [
+        {
+          "name": "Repte 1 - Paginació",
+          "item": [
+            {
+              "name": "Llistar usuaris (pàgina 2)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/users?page=2",
+                  "host": ["{{base_url}}"],
+                  "path": ["users"],
+                  "query": [{ "key": "page", "value": "2" }]
+                }
+              }
+            },
+            {
+              "name": "Llistar usuaris (pàgina 3)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/users?page=3",
+                  "host": ["{{base_url}}"],
+                  "path": ["users"],
+                  "query": [{ "key": "page", "value": "3" }]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Repte 2 - Gestió d'errors",
+          "item": [
+            {
+              "name": "Registre sense contrasenya",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"email\": \"eve.holt@reqres.in\"\n}",
+                  "options": { "raw": { "language": "json" } }
+                },
+                "url": {
+                  "raw": "{{base_url}}/register",
+                  "host": ["{{base_url}}"],
+                  "path": ["register"]
+                }
+              }
+            },
+            {
+              "name": "Registre amb correu inexistent",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"email\": \"esteve@exemple.com\",\n    \"password\": \"pistol\"\n}",
+                  "options": { "raw": { "language": "json" } }
+                },
+                "url": {
+                  "raw": "{{base_url}}/register",
+                  "host": ["{{base_url}}"],
+                  "path": ["register"]
+                }
+              }
+            },
+            {
+              "name": "Usuari inexistent (23)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/users/23",
+                  "host": ["{{base_url}}"],
+                  "path": ["users", "23"]
+                }
+              }
+            },
+            {
+              "name": "Login amb credencials incorrectes",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"email\": \"esteve@exemple.com\",\n    \"password\": \"incorrecta\"\n}",
+                  "options": { "raw": { "language": "json" } }
+                },
+                "url": {
+                  "raw": "{{base_url}}/login",
+                  "host": ["{{base_url}}"],
+                  "path": ["login"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Repte 3 - Temps de resposta",
+          "item": [
+            {
+              "name": "Usuaris pàgina 1 sense delay",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/users?page=1",
+                  "host": ["{{base_url}}"],
+                  "path": ["users"],
+                  "query": [{ "key": "page", "value": "1" }]
+                }
+              }
+            },
+            {
+              "name": "Usuaris pàgina 1 amb delay=3",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/users?page=1&delay=3",
+                  "host": ["{{base_url}}"],
+                  "path": ["users"],
+                  "query": [
+                    { "key": "page", "value": "1" },
+                    { "key": "delay", "value": "3" }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
