@@ -6,8 +6,6 @@
 </head>
 <body>
     <h1>Àrea d'un rectangle</h1>
-
-    <!-- Les dades s'envien per GET a ex1_processa.php -->
     <form action="ex1_processa.php" method="get">
         <p>
             <label for="base">Base:</label>

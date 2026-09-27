@@ -3,6 +3,9 @@
 $exercicis = [
     'ex1.php' => 'Exercici 1 - Àrea d\'un rectangle',
     'ex2.php' => 'Exercici 2 - Dies d\'un mes',
+    'ex3.php' => 'Exercici 3 - Conversió de temperatura',
+    'ex4.php' => 'Exercici 4 - Validador de contrasenyes',
+    'ex5.php' => 'Exercici 5 - Múltiples de 3',
 ];
 ?>
 <!DOCTYPE html>

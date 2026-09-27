@@ -10,8 +10,6 @@ require_once 'mesos.php';
 </head>
 <body>
     <h1>Quants dies té un mes?</h1>
-
-    <!-- El mes s'envia per GET a ex2_processa.php -->
     <form action="ex2_processa.php" method="get">
         <p>
             <label for="mes">Mes:</label>
