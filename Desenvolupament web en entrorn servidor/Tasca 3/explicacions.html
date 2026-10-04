@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Explicacions TASCA-03</title>
+<style>
+    :root {
+        --bg: #fbfaf7;
+        --surface: #ffffff;
+        --text: #1f2328;
+        --muted: #5b6370;
+        --border: #e3e0d8;
+        --accent: #1f5fae;
+        --accent-soft: #e8f0fa;
+        --code-bg: #f3f1ec;
+        --note-bg: #fff7e0;
+        --note-border: #e6b84d;
+        --ok-bg: #e9f6ec;
+        --ok-border: #4f9d63;
+        --warn-bg: #fdecec;
+        --warn-border: #c9534f;
+    }
+    @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+            --bg: #16181c;
+            --surface: #1e2126;
+            --text: #e6e6e3;
+            --muted: #9aa1ab;
+            --border: #33373e;
+            --accent: #7fb0ec;
+            --accent-soft: #1f2a38;
+            --code-bg: #262a30;
+            --note-bg: #2e2816;
+            --note-border: #a8862f;
+            --ok-bg: #18291d;
+            --ok-border: #4f9d63;
+            --warn-bg: #321b1b;
+            --warn-border: #c9534f;
+        }
+    }
+    :root[data-theme="dark"] {
+        --bg: #16181c;
+        --surface: #1e2126;
+        --text: #e6e6e3;
+        --muted: #9aa1ab;
+        --border: #33373e;
+        --accent: #7fb0ec;
+        --accent-soft: #1f2a38;
+        --code-bg: #262a30;
+        --note-bg: #2e2816;
+        --note-border: #a8862f;
+        --ok-bg: #18291d;
+        --ok-border: #4f9d63;
+        --warn-bg: #321b1b;
+        --warn-border: #c9534f;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 16px; }
+    body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font: 16px/1.65 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    }
+    .layout {
+        display: grid;
+        grid-template-columns: 260px minmax(0, 1fr);
+        gap: 40px;
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 32px 24px 80px;
+    }
+    nav.toc {
+        position: sticky;
+        top: 24px;
+        align-self: start;
+        max-height: calc(100vh - 48px);
+        overflow-y: auto;
+        font-size: 14px;
+    }
+    nav.toc h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 8px; }
+    nav.toc ol { list-style: none; margin: 0; padding: 0; }
+    nav.toc li { margin: 0; }
+    nav.toc a { display: block; padding: 4px 10px; border-left: 2px solid var(--border); color: var(--text); text-decoration: none; }
+    nav.toc a:hover { border-left-color: var(--accent); color: var(--accent); }
+    nav.toc ol ol a { padding-left: 22px; color: var(--muted); font-size: 13px; }
+    main { min-width: 0; }
+
+    header.doc { border-bottom: 1px solid var(--border); padding-bottom: 20px; margin-bottom: 8px; }
+    header.doc h1 { font-size: 34px; line-height: 1.2; margin: 0 0 6px; }
+    header.doc p { margin: 0; color: var(--muted); }
+
+    h2 { font-size: 26px; margin: 56px 0 12px; padding-top: 8px; border-top: 1px solid var(--border); }
+    h3 { font-size: 19px; margin: 32px 0 8px; }
+    h2 .num { color: var(--accent); margin-right: 6px; }
+    p, ul, ol { margin: 0 0 14px; }
+    li { margin-bottom: 4px; }
+    a { color: var(--accent); }
+
+    code {
+        font: 0.9em/1.5 ui-monospace, "Cascadia Code", Consolas, monospace;
+        background: var(--code-bg);
+        padding: 1px 5px;
+        border-radius: 4px;
+    }
+    pre {
+        background: var(--code-bg);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 14px 16px;
+        overflow-x: auto;
+        margin: 0 0 16px;
+    }
+    pre code { background: none; padding: 0; font-size: 14px; }
+    pre .c { color: var(--muted); font-style: italic; }
+
+    table { width: 100%; border-collapse: collapse; margin: 0 0 18px; font-size: 15px; background: var(--surface); }
+    th, td { border: 1px solid var(--border); padding: 7px 10px; text-align: left; vertical-align: top; }
+    th { background: var(--accent-soft); }
+    .table-wrap { overflow-x: auto; }
+
+    .box { border-left: 4px solid; border-radius: 6px; padding: 12px 16px; margin: 0 0 18px; }
+    .box p:last-child, .box ul:last-child { margin-bottom: 0; }
+    .box strong:first-child { display: block; margin-bottom: 4px; }
+    .note { background: var(--note-bg); border-color: var(--note-border); }
+    .ok { background: var(--ok-bg); border-color: var(--ok-border); }
+    .warn { background: var(--warn-bg); border-color: var(--warn-border); }
+
+    .files { font: 14px/1.5 ui-monospace, Consolas, monospace; }
+    .flow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0 0 18px; }
+    .flow span { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px 10px; font-size: 14px; }
+    .flow b { color: var(--muted); font-weight: normal; }
+
+    .theme-btn {
+        position: fixed; right: 16px; bottom: 16px;
+        background: var(--surface); color: var(--text);
+        border: 1px solid var(--border); border-radius: 20px;
+        padding: 6px 14px; font-size: 13px; cursor: pointer;
+    }
+
+    @media (max-width: 860px) {
+        .layout { grid-template-columns: 1fr; gap: 0; padding: 20px 16px 80px; }
+        nav.toc { position: static; max-height: none; margin-bottom: 24px; border: 1px solid var(--border); border-radius: 8px; padding: 12px; background: var(--surface); }
+        header.doc h1 { font-size: 27px; }
+        h2 { font-size: 22px; }
+    }
+    @media print {
+        nav.toc, .theme-btn { display: none; }
+        .layout { display: block; }
+        pre { white-space: pre-wrap; }
+    }
+</style>
+</head>
+<body>
+<div class="layout">
+
+<nav class="toc" aria-label="Índex">
+    <h2>Índex</h2>
+    <ol>
+        <li><a href="#entorn">0. Entorn i estructura</a></li>
+        <li><a href="#pas0">1. Esquelet comú (includes)</a>
+            <ol>
+                <li><a href="#include-require">include vs require</a></li>
+                <li><a href="#dir">__DIR__</a></li>
+                <li><a href="#ordre">Ordre d'una pàgina</a></li>
+                <li><a href="#xss">e() i htmlspecialchars</a></li>
+                <li><a href="#menu">Menú actiu</a></li>
+                <li><a href="#sintaxi">Sintaxi alternativa</a></li>
+            </ol>
+        </li>
+        <li><a href="#ex1">2. Capitals Europees</a>
+            <ol>
+                <li><a href="#asort">asort i ordenació</a></li>
+                <li><a href="#valor">Pas per valor</a></li>
+                <li><a href="#filter">array_filter</a></li>
+                <li><a href="#stripos">stripos i !== false</a></li>
+                <li><a href="#get">Per què GET</a></li>
+            </ol>
+        </li>
+        <li><a href="#ex2">3. Temperatures</a>
+            <ol>
+                <li><a href="#memoria">HTTP no té memòria</a></li>
+                <li><a href="#hidden">Camps ocults</a></li>
+                <li><a href="#validar-hidden">Validar l'estat</a></li>
+                <li><a href="#botons">Dos formularis</a></li>
+                <li><a href="#fahrenheit">Guardar en °F</a></li>
+                <li><a href="#estadistiques">Estadístiques</a></li>
+                <li><a href="#grafic">Gràfic</a></li>
+            </ol>
+        </li>
+        <li><a href="#ex3">4. Arrays associatius</a>
+            <ol>
+                <li><a href="#bucles">Combinar amb bucles</a></li>
+                <li><a href="#combine">array_combine</a></li>
+                <li><a href="#excepcions">Excepcions</a></li>
+                <li><a href="#key-exists">array_key_exists i unset</a></li>
+                <li><a href="#camps-ocults">campsOcults()</a></li>
+                <li><a href="#fila">Un formulari per fila</a></li>
+                <li><a href="#regex">Validar claus</a></li>
+            </ol>
+        </li>
+        <li><a href="#ex4">5. Acadèmia d'idiomes</a>
+            <ol>
+                <li><a href="#matriu">La matriu</a></li>
+                <li><a href="#funcions-ex4">Funcions estadístiques</a></li>
+                <li><a href="#reconstruir">Reconstruir l'estat</a></li>
+                <li><a href="#post-get">POST i GET junts</a></li>
+                <li><a href="#unics">Noms únics</a></li>
+                <li><a href="#splice">array_splice</a></li>
+                <li><a href="#moure">Moure alumnes</a></li>
+                <li><a href="#ressaltar">Ressaltar la cerca</a></li>
+            </ol>
+        </li>
+        <li><a href="#lliurament">6. Lliurament</a></li>
+        <li><a href="#requisits">7. Requisits del PDF</a></li>
+        <li><a href="#referencia">8. Referència de funcions</a></li>
+        <li><a href="#errors">9. Errors típics</a></li>
+    </ol>
+</nav>
+
+<main>
+<header class="doc">
+    <h1>TASCA-03 · Arrays, Funcions i Formularis en PHP</h1>
+    <p>M613-B1 · Esteve Amargant · Explicacions pas a pas de com s'ha fet cada exercici i per què.</p>
+</header>
+
+<!-- ============================================================ -->
+<h2 id="entorn"><span class="num">0.</span>Entorn i estructura</h2>
+
+<p>L'enunciat demana una petita web en PHP amb Bootstrap i 4 exercicis (Capitals, Temperatures, Arrays associatius i Acadèmia d'idiomes). Els exercicis han de compartir una capçalera, un peu i un fitxer de funcions mitjançant <em>includes</em>. Tot s'ha fet sense base de dades: l'estat es guarda en camps ocults dels formularis.</p>
+
+<h3>Estructura de fitxers</h3>
+<pre class="files"><code>Tasca 3/
+├── README.md                  Instruccions d'instal·lació
+├── explicacions.html          Aquest document
+└── src/
+    ├── assets/css/styles.css  Estils propis (complementen Bootstrap)
+    ├── includes/
+    │   ├── header.php         &lt;head&gt;, Bootstrap i menú
+    │   ├── footer.php         Peu i JS de Bootstrap
+    │   └── functions.php      TOTES les funcions dels exercicis
+    ├── ex1.php                Capitals Europees
+    ├── ex2.php                Anàlisi de Temperatures
+    ├── ex3.php                Arrays Associatius
+    ├── ex4.php                Acadèmia d'Idiomes
+    └── index.php              Pàgina d'inici</code></pre>
+
+<h3>Com s'executa</h3>
+<p>Fem servir el <code>docker-compose.yml</code> de la carpeta del mòdul. Aixeca un contenidor <code>php:8.2-apache</code> al port 8080 i munta tota la carpeta a <code>/var/www/html</code>:</p>
+<pre><code>cd "Desenvolupament web en entrorn servidor"
+docker compose up</code></pre>
+<p>URL: <code>http://127.0.0.1:8080/Tasca%203/src/index.php</code></p>
+
+<div class="box note">
+    <strong>Per què 127.0.0.1 i no localhost?</strong>
+    <p>Des de Windows, <code>localhost</code> es resol primer per IPv6 (<code>::1</code>). En aquest equip, <code>::1:8080</code> l'escolta el <em>relay</em> de WSL, que porta a un altre servidor de dins d'Ubuntu, i aquest respon amb un 404. En canvi, <code>127.0.0.1</code> (IPv4) arriba directament al contenidor de Docker. Ho vam diagnosticar comparant <code>curl http://127.0.0.1:8080/...</code> (200) amb <code>curl http://[::1]:8080/...</code> (404).</p>
+</div>
+
+<h3>Què passa quan s'envia un formulari</h3>
+<div class="flow">
+    <span>Navegador omple el formulari</span><b>→</b>
+    <span>GET/POST a <code>action=""</code> (el mateix fitxer)</span><b>→</b>
+    <span>PHP llegeix <code>$_GET</code> / <code>$_POST</code></span><b>→</b>
+    <span>Valida i calcula amb <code>functions.php</code></span><b>→</b>
+    <span>Genera HTML nou amb l'estat en camps ocults</span>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="pas0"><span class="num">1.</span>Esquelet comú: header, footer i functions</h2>
+
+<p>Abans dels exercicis es crea la base que comparteixen totes les pàgines: <code>header.php</code> (obre l'HTML, carrega Bootstrap i pinta el menú), <code>footer.php</code> (tanca l'HTML) i <code>functions.php</code> (totes les funcions). Així no es repeteix codi i, si canvies el menú, només el toques en un lloc.</p>
+
+<h3 id="include-require">include vs require vs require_once</h3>
+<p>Totes aquestes ordres "copien" un altre fitxer PHP dins del fitxer actual, com si l'haguessis enganxat allà. La diferència és què passa quan alguna cosa va malament:</p>
+<div class="table-wrap">
+<table>
+    <tr><th>Ordre</th><th>Si el fitxer no existeix…</th><th>Si ja s'ha inclòs abans…</th></tr>
+    <tr><td><code>include</code></td><td>Avís (<em>warning</em>) i la pàgina continua</td><td>El torna a incloure</td></tr>
+    <tr><td><code>include_once</code></td><td>Avís i continua</td><td>No el torna a incloure</td></tr>
+    <tr><td><code>require</code></td><td><strong>Error fatal</strong>: la pàgina s'atura</td><td>El torna a incloure</td></tr>
+    <tr><td><code>require_once</code></td><td><strong>Error fatal</strong></td><td><strong>No</strong> el torna a incloure</td></tr>
+</table>
+</div>
+<p>Fem servir <code>require_once</code> per dos motius:</p>
+<ul>
+    <li>Sense aquests fitxers la pàgina no té sentit, així que és millor que s'aturi que no pas que surti mig trencada.</li>
+    <li>Si <code>functions.php</code> es carregués dues vegades, PHP donaria l'error <code>Cannot redeclare function e()</code>. El <code>_once</code> ho evita.</li>
+</ul>
+
+<h3 id="dir">__DIR__ per a les rutes</h3>
+<p><code>__DIR__</code> és una constant màgica que conté la carpeta <em>del fitxer on està escrita</em>. Amb <code>__DIR__ . '/includes/header.php'</code> la ruta és absoluta i funciona independentment de des d'on s'executi el script. Una ruta relativa (<code>'includes/header.php'</code>) depèn del directori de treball actual, que pot canviar.</p>
+
+<h3 id="ordre">L'ordre dins de cada pàgina</h3>
+<p>Totes les pàgines (<code>index.php</code>, <code>ex1.php</code>…) segueixen el mateix patró:</p>
+<pre><code>&lt;?php
+require_once __DIR__ . '/includes/functions.php'; <span class="c">// 1. funcions (el header ja les necessita)</span>
+$titol = 'Capitals Europees';                      <span class="c">// 2. variables per al header</span>
+
+<span class="c">// 3. LÒGICA: llegir GET/POST, validar, calcular</span>
+
+require_once __DIR__ . '/includes/header.php';     <span class="c">// 4. HTML d'obertura + menú</span>
+?&gt;
+<span class="c">&lt;!-- 5. contingut HTML de la pàgina --&gt;</span>
+&lt;?php require_once __DIR__ . '/includes/footer.php'; ?&gt; <span class="c">// 6. HTML de tancament</span></code></pre>
+<p>Cal fixar-se en dues coses:</p>
+<ul>
+    <li><strong>Els fitxers inclosos comparteixen les variables</strong> de la pàgina que els inclou. Per això <code>header.php</code> pot llegir <code>$titol</code>.</li>
+    <li>La <strong>lògica va abans de l'HTML</strong>. Quan es comença a pintar la pàgina, tots els càlculs i errors ja estan fets. Això separa "pensar" de "mostrar".</li>
+</ul>
+<p>A <code>header.php</code>, <code>$titol = $titol ?? 'PHP Exercicis';</code> fa servir l'operador <code>??</code> (<em>null coalescing</em>): si <code>$titol</code> no existeix o és <code>null</code>, agafa el valor de la dreta.</p>
+
+<h3 id="xss">e() i htmlspecialchars(): protecció contra XSS</h3>
+<p>El PDF demana escapar tota la sortida. Si un usuari escriu <code>&lt;script&gt;alert(1)&lt;/script&gt;</code> en un formulari i el mostrem tal qual, el navegador l'executaria. Això és un atac <strong>XSS</strong> (<em>Cross-Site Scripting</em>). <code>htmlspecialchars()</code> converteix els caràcters perillosos en entitats HTML:</p>
+<div class="table-wrap">
+<table>
+    <tr><th>Caràcter</th><th>Es converteix en</th></tr>
+    <tr><td><code>&lt;</code></td><td><code>&amp;lt;</code></td></tr>
+    <tr><td><code>&gt;</code></td><td><code>&amp;gt;</code></td></tr>
+    <tr><td><code>&amp;</code></td><td><code>&amp;amp;</code></td></tr>
+    <tr><td><code>"</code></td><td><code>&amp;quot;</code></td></tr>
+    <tr><td><code>'</code></td><td><code>&amp;#039;</code> (només amb <code>ENT_QUOTES</code>)</td></tr>
+</table>
+</div>
+<p>Com que s'ha d'escriure moltíssimes vegades, hem fet una funció curta:</p>
+<pre><code>function e($text): string
+{
+    return htmlspecialchars((string) $text, ENT_QUOTES, 'UTF-8');
+}</code></pre>
+<ul>
+    <li><code>ENT_QUOTES</code> escapa també les cometes simples. És important quan el valor va dins d'un atribut: <code>value="&lt;?= e($x) ?&gt;"</code>.</li>
+    <li><code>'UTF-8'</code> indica la codificació, perquè els accents (à, è, ç…) es tractin bé.</li>
+    <li><code>(string)</code> permet passar-hi números sense problemes.</li>
+</ul>
+<p>També hi ha <code>mostrarErrors(array $errors)</code> i <code>mostrarExit(string $missatge)</code>, que pinten alertes de Bootstrap (vermella i verda). Es fan servir a tots els exercicis.</p>
+
+<h3 id="menu">Menú amb l'enllaç actiu</h3>
+<pre><code>$paginaActual = basename($_SERVER['PHP_SELF']);   <span class="c">// "ex1.php"</span>
+...
+&lt;a class="nav-link &lt;?= $fitxer === $paginaActual ? 'active' : '' ?&gt;" ...&gt;</code></pre>
+<p><code>$_SERVER['PHP_SELF']</code> és la ruta del script que s'està executant (<code>/Tasca 3/src/ex1.php</code>) i <code>basename()</code> en treu només el nom. Si coincideix amb l'enllaç, se li posa la classe <code>active</code> de Bootstrap.</p>
+
+<h3 id="sintaxi">Sintaxi alternativa dins l'HTML</h3>
+<p>Quan PHP i HTML van barrejats, és més llegible fer servir:</p>
+<pre><code>&lt;?php foreach ($menu as $fitxer =&gt; $text): ?&gt;
+    &lt;li&gt;&lt;?= e($text) ?&gt;&lt;/li&gt;
+&lt;?php endforeach; ?&gt;</code></pre>
+<ul>
+    <li><code>&lt;?= ... ?&gt;</code> equival a <code>&lt;?php echo ... ?&gt;</code>.</li>
+    <li><code>foreach (...):</code> … <code>endforeach;</code>, <code>if (...):</code> … <code>else:</code> … <code>endif;</code> substitueixen les claus <code>{ }</code>, que dins l'HTML es perden fàcilment.</li>
+</ul>
+
+<!-- ============================================================ -->
+<h2 id="ex1"><span class="num">2.</span>Exercici 1: Capitals Europees</h2>
+
+<p><strong>Què demana:</strong> donat un array associatiu <code>país =&gt; capital</code>, crear una funció que el <em>retorni</em> ordenat per capital mantenint el país, amb cerca parcial sense distingir majúscules i filtre per la lletra inicial del país.</p>
+<p><strong>Funcions creades:</strong> <code>ordenarPerCapital()</code>, <code>cercarPaisOCapital()</code>, <code>filtrarPerLletra()</code> i <code>lletresInicials()</code>.</p>
+<p>A la pàgina, les tres operacions s'encadenen. Cada una rep el resultat de l'anterior:</p>
+<pre><code>$resultat = ordenarPerCapital($ceu);
+$resultat = cercarPaisOCapital($resultat, $cerca);
+$resultat = filtrarPerLletra($resultat, $lletra);</code></pre>
+
+<h3 id="asort">Per què asort i no sort</h3>
+<div class="table-wrap">
+<table>
+    <tr><th>Funció</th><th>Ordena per</th><th>Conserva les claus?</th><th>Ordre</th></tr>
+    <tr><td><code>sort</code></td><td>valor</td><td>❌ les substitueix per 0, 1, 2…</td><td>ascendent</td></tr>
+    <tr><td><code>rsort</code></td><td>valor</td><td>❌</td><td>descendent</td></tr>
+    <tr><td><code>asort</code></td><td>valor</td><td>✅</td><td>ascendent</td></tr>
+    <tr><td><code>arsort</code></td><td>valor</td><td>✅</td><td>descendent</td></tr>
+    <tr><td><code>ksort</code></td><td>clau</td><td>✅</td><td>ascendent</td></tr>
+    <tr><td><code>krsort</code></td><td>clau</td><td>✅</td><td>descendent</td></tr>
+    <tr><td><code>usort</code> / <code>uasort</code></td><td>funció pròpia</td><td>❌ / ✅</td><td>el que diguis</td></tr>
+</table>
+</div>
+<p>Volem ordenar per <em>capital</em> (el valor) sense perdre el <em>país</em> (la clau): <strong><code>asort</code></strong>. Amb <code>sort</code> obtindríem <code>[0 =&gt; "Amsterdam", 1 =&gt; "Athens", …]</code> i ja no sabríem de quin país és cada capital.</p>
+<pre><code>function ordenarPerCapital(array $paisos): array
+{
+    asort($paisos, SORT_STRING | SORT_FLAG_CASE);
+    return $paisos;
+}</code></pre>
+<p>Els <em>flags</em> <code>SORT_STRING | SORT_FLAG_CASE</code> fan que compari com a text i sense distingir majúscules. Sense <code>SORT_FLAG_CASE</code>, les majúscules van abans que les minúscules ("Zagreb" &lt; "amsterdam").</p>
+
+<h3 id="valor">"Retornar" l'array: pas per valor</h3>
+<p><code>asort</code> modifica l'array que rep, però l'enunciat diu que la funció l'ha de <em>retornar</em>. Això funciona perquè a PHP <strong>els arrays es passen per valor</strong>: la funció rep una còpia, la modifica i la retorna. L'original <code>$ceu</code> no canvia.</p>
+<pre><code>function f(array $a)  { ... }   <span class="c">// per valor: treballa amb una còpia</span>
+function g(array &amp;$a) { ... }   <span class="c">// per referència (&amp;): modifica l'original</span></code></pre>
+
+<h3 id="filter">array_filter amb funcions fletxa</h3>
+<p><code>array_filter</code> recorre l'array i <strong>només es queda els elements per als quals la funció retorna <code>true</code></strong>. Les claus es conserven. El tercer paràmetre indica què rep la funció:</p>
+<div class="table-wrap">
+<table>
+    <tr><th>Mode</th><th>La funció rep</th><th>On el fem servir</th></tr>
+    <tr><td><em>(per defecte)</em></td><td>el valor</td><td>—</td></tr>
+    <tr><td><code>ARRAY_FILTER_USE_KEY</code></td><td>la clau</td><td>filtre per lletra inicial del país</td></tr>
+    <tr><td><code>ARRAY_FILTER_USE_BOTH</code></td><td>valor i clau</td><td>cerca per país <em>o</em> capital</td></tr>
+</table>
+</div>
+<pre><code>function cercarPaisOCapital(array $paisos, string $text): array
+{
+    $text = trim($text);
+    if ($text === '') {
+        return $paisos;                       <span class="c">// sense text, no filtrem</span>
+    }
+    return array_filter(
+        $paisos,
+        fn($capital, $pais) =&gt; stripos($pais, $text) !== false || stripos($capital, $text) !== false,
+        ARRAY_FILTER_USE_BOTH
+    );
+}</code></pre>
+<p><code>fn(...) =&gt; expressió</code> és una <strong>funció fletxa</strong> (PHP 7.4+): una funció anònima d'una sola expressió que retorna el resultat directament. A més, pot fer servir variables de fora (com <code>$text</code>) sense necessitat de <code>use</code>.</p>
+
+<h3 id="stripos">Cerca parcial: stripos i la trampa del 0</h3>
+<p><code>stripos($pajar, $agulla)</code> retorna la <strong>posició</strong> on troba el text, o <code>false</code> si no el troba. La <code>i</code> vol dir <em>case-insensitive</em> (no distingeix majúscules).</p>
+<div class="box warn">
+    <strong>Compte: cal comparar amb <code>!== false</code></strong>
+    <p>Si la coincidència és al principi, <code>stripos("Paris", "par")</code> retorna <code>0</code>. Amb una comparació feble, <code>0 == false</code> és <strong>cert</strong>, i "Paris" no sortiria als resultats. <code>!==</code> compara també el tipus: <code>0 !== false</code> és cert, que és el que volem.</p>
+</div>
+
+<h3>La inicial del país</h3>
+<p><code>$pais[0]</code> és el primer caràcter de l'string. <code>lletresInicials()</code> recull totes les inicials, en treu les repetides amb <code>array_unique()</code> i les ordena amb <code>sort()</code>. Aquí <code>sort</code> va bé perquè les claus no importen. Aquesta llista omple el <code>&lt;select&gt;</code> del filtre.</p>
+
+<h3 id="get">Per què GET i com es "recorda" el formulari</h3>
+<p>El PDF diu: <strong>GET per a cerques i filtres</strong>. Amb GET, els paràmetres van a la URL (<code>ex1.php?cerca=par&amp;lletra=F</code>). Així es pot fer un favorit de la cerca, compartir-la o tornar-hi amb el botó "enrere". A més, una cerca no modifica res, i aquest és el significat de GET a HTTP.</p>
+<ul>
+    <li><code>action=""</code> envia el formulari al mateix fitxer.</li>
+    <li><code>value="&lt;?= e($cerca) ?&gt;"</code> torna a omplir el camp amb el que havies escrit.</li>
+    <li><code>&lt;?= $l === $lletra ? 'selected' : '' ?&gt;</code> deixa marcada l'opció escollida.</li>
+</ul>
+
+<h3>Validació</h3>
+<p>No ens podem fiar de res que arribi per <code>$_GET</code>, perquè l'usuari pot escriure la URL a mà. Per això:</p>
+<pre><code>if ($lletra !== '' &amp;&amp; !in_array($lletra, $lletres, true)) {
+    $errors[] = 'La lletra seleccionada no és vàlida.';
+    $lletra = '';
+}</code></pre>
+<p>El <code>true</code> final d'<code>in_array</code> activa la <strong>comparació estricta</strong> (tipus i valor). També limitem la cerca a 50 caràcters amb <code>mb_strlen()</code>, que compta caràcters i no bytes (una "à" ocupa 2 bytes en UTF-8).</p>
+
+<div class="box ok">
+    <strong>Comprovat</strong>
+    <p>Sense filtres: Amsterdam, Athens, Berlin, Bratislava… (com a la captura del PDF). Cerca "PAR" → France/Paris. Lletra "S" → Slovakia, Slovenia, Spain, Sweden. <code>&lt;script&gt;</code> a la cerca → surt escapat.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="ex2"><span class="num">3.</span>Exercici 2: Anàlisi de Temperatures</h2>
+
+<p><strong>Què demana:</strong> funcions per convertir de °F a °C, calcular la mitjana, la mediana, el top 5 més altes i més baixes, i la màxima i la mínima. També un formulari per afegir temperatures i triar l'escala, amb els resultats en una taula i un gràfic opcional.</p>
+<p><strong>Funcions creades:</strong> <code>fahrenheitACelsius()</code>, <code>formatTemperatura()</code>, <code>calcularMitjana()</code>, <code>calcularMediana()</code>, <code>temperaturesMesAltes()</code>, <code>temperaturesMesBaixes()</code>, <code>temperaturaMaxima()</code>, <code>temperaturaMinima()</code> i <code>validarTemperatura()</code>.</p>
+
+<h3 id="memoria">El problema: HTTP no té memòria</h3>
+<p>Cada petició executa el PHP <strong>des de zero</strong>. Les variables no sobreviuen d'una petició a la següent. Si afegeixes 90 °F i després 95 °F, en la segona petició el servidor ja no recorda el 90. Hi ha diverses maneres de guardar l'estat: sessions, cookies, una base de dades… L'enunciat demana fer-ho amb <strong>camps ocults</strong>.</p>
+
+<h3 id="hidden">Camps ocults amb name="temps[]"</h3>
+<p>Cada formulari porta dins totes les temperatures actuals:</p>
+<pre><code>&lt;input type="hidden" name="temps[]" value="78"&gt;
+&lt;input type="hidden" name="temps[]" value="60"&gt;
+&lt;input type="hidden" name="temps[]" value="62"&gt;
+...</code></pre>
+<p>Els <strong><code>[]</code> al final del <code>name</code></strong> són clau: PHP ajunta tots els camps amb aquest nom en un array, i <code>$_POST['temps']</code> ja és <code>["78", "60", "62", …]</code>. El cicle és aquest:</p>
+<div class="flow">
+    <span>Pàgina amb 30 temps ocults</span><b>→</b>
+    <span>Envies 90</span><b>→</b>
+    <span>PHP llegeix els 30 + afegeix 90</span><b>→</b>
+    <span>Pàgina nova amb 31 temps ocults</span><b>→</b>
+    <span>…</span>
+</div>
+<p>Per distingir la primera visita de les següents:</p>
+<pre><code>if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    <span class="c">// recuperar l'estat dels camps ocults i processar l'acció</span>
+} else {
+    $temperatures = $temperaturesInicials;   <span class="c">// primera visita (GET): dades del PDF</span>
+    $escala = 'F';
+}</code></pre>
+
+<h3 id="validar-hidden">"Ocult" no vol dir "segur"</h3>
+<p>Amb l'inspector del navegador (F12) qualsevol pot editar un camp ocult. Per això <strong>també validem l'estat</strong>, no només el camp que escriu l'usuari:</p>
+<pre><code>function validarTemperatura($valor): ?float
+{
+    $temp = filter_var($valor, FILTER_VALIDATE_FLOAT);
+    if ($temp === false || $temp &lt; -100 || $temp &gt; 200) {
+        return null;
+    }
+    return $temp;
+}</code></pre>
+<ul>
+    <li><code>filter_var(..., FILTER_VALIDATE_FLOAT)</code> retorna el número com a <code>float</code>, o <code>false</code> si no ho és. És més fiable que <code>is_numeric</code>, que accepta coses com <code>"1e3"</code> o espais.</li>
+    <li>El tipus de retorn <code>?float</code> vol dir "float o null".</li>
+    <li>Si un valor desat no és vàlid, es descarta i es mostra un avís. Si no en queda cap de vàlid, es restauren les dades inicials.</li>
+</ul>
+
+<h3 id="botons">Dos formularis i botons amb valor</h3>
+<ul>
+    <li><strong>Afegir:</strong> camp <code>nova</code> i botó <code>&lt;button name="accio" value="afegir"&gt;</code>.</li>
+    <li><strong>Escala:</strong> dos botons <code>type="submit"</code> amb el mateix <code>name="escala"</code> i valors <code>F</code> i <code>C</code>. <strong>Només s'envia el valor del botó que cliques</strong>, així que no cal JavaScript.</li>
+</ul>
+<p>Tots dos formularis porten els camps ocults. Si un no els portés, en fer-lo servir es perdrien les temperatures afegides. El formulari d'afegir també porta l'escala actual en un camp ocult, perquè no torni a Fahrenheit en afegir.</p>
+
+<h3 id="fahrenheit">Guardar en °F i convertir només en mostrar</h3>
+<p>Els càlculs es fan <strong>sempre amb els valors originals en °F</strong>. La conversió només es fa en el moment de pintar:</p>
+<pre><code>function fahrenheitACelsius(float $f): float
+{
+    return round(($f - 32) * 5 / 9, 2);       <span class="c">// C = (F − 32) × 5/9, 2 decimals</span>
+}
+
+function formatTemperatura(float $f, string $escala): string
+{
+    $valor = $escala === 'C' ? fahrenheitACelsius($f) : $f;
+    return number_format($valor, 2, '.', '') . '°' . $escala;   <span class="c">// "70.42°F"</span>
+}</code></pre>
+<p>Si convertíssim primer cada temperatura i l'arrodoníssim a 2 decimals, els càlculs posteriors (com la mitjana) acumularien petits errors d'arrodoniment. Tenir una única unitat interna és una pràctica habitual: guardar en una unitat i convertir només en la presentació.</p>
+
+<h3 id="estadistiques">Les funcions estadístiques</h3>
+<div class="table-wrap">
+<table>
+    <tr><th>Càlcul</th><th>Com</th></tr>
+    <tr><td>Mitjana</td><td><code>array_sum($t) / count($t)</code></td></tr>
+    <tr><td>Màxima / mínima</td><td><code>max($t)</code> / <code>min($t)</code></td></tr>
+    <tr><td>5 més altes</td><td><code>sort($t)</code> i <code>array_slice($t, -5)</code>: els 5 últims</td></tr>
+    <tr><td>5 més baixes</td><td><code>sort($t)</code> i <code>array_slice($t, 0, 5)</code>: els 5 primers</td></tr>
+    <tr><td>Mediana</td><td>Ordenar i agafar el valor del mig (vegeu a sota)</td></tr>
+</table>
+</div>
+<p><strong>La mediana</strong> és el valor central de la llista ordenada. Si el nombre d'elements és parell, no hi ha un valor central únic i es fa la mitjana dels dos del mig:</p>
+<pre><code>function calcularMediana(array $temps): float
+{
+    if (empty($temps)) return 0.0;
+    sort($temps);
+    $n = count($temps);
+    $meitat = intdiv($n, 2);                  <span class="c">// divisió entera: intdiv(31, 2) = 15</span>
+
+    if ($n % 2 === 0) {                       <span class="c">// parell: mitjana dels dos centrals</span>
+        return ($temps[$meitat - 1] + $temps[$meitat]) / 2;
+    }
+    return $temps[$meitat];                   <span class="c">// senar: el del mig</span>
+}</code></pre>
+<p>Exemple: amb 30 temperatures, <code>$meitat = 15</code> i es fa la mitjana de les posicions 14 i 15. Amb 31 (en afegir-ne una), és directament la posició 15.</p>
+<p>Totes aquestes funcions reben l'array <strong>per valor</strong>, així que el <code>sort()</code> intern no desordena l'array de la pàgina.</p>
+
+<h3 id="grafic">Gràfic opcional amb Chart.js</h3>
+<p>Per passar dades de PHP a JavaScript es fa servir <code>json_encode()</code>, que converteix un array de PHP en un array de JavaScript vàlid:</p>
+<pre><code>const dades = &lt;?= json_encode($dadesGrafic, JSON_HEX_TAG) ?&gt;;   <span class="c">// [78, 60, 62, ...]</span></code></pre>
+<p><code>JSON_HEX_TAG</code> converteix <code>&lt;</code> i <code>&gt;</code> en <code><</code> i <code>></code>. Així un valor no podria contenir mai <code>&lt;/script&gt;</code> i tancar l'etiqueta abans d'hora. És l'equivalent de <code>htmlspecialchars</code> dins de JavaScript.</p>
+
+<div class="box ok">
+    <strong>Comprovat amb la captura del PDF (afegint 90 °F)</strong>
+    <p>Mitjana 70.42 °F · Mediana 71.00 °F · Màxima 90.00 °F · Mínima 60.00 °F · Més altes 76, 78, 79, 85, 90 · Més baixes 60, 62, 62, 62, 62. Tot coincideix.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="ex3"><span class="num">4.</span>Exercici 3: Arrays Associatius</h2>
+
+<p><strong>Què demana:</strong> combinar <code>$keys</code> i <code>$values</code> de dues maneres (amb bucles i amb <code>array_combine()</code>) per obtenir <code>["first" =&gt; "dinosaur", "second" =&gt; "pig", "third" =&gt; "platypus"]</code>, i un formulari per afegir, modificar i eliminar parelles.</p>
+<p><strong>Funcions creades:</strong> <code>combinarAmbBucles()</code>, <code>combinarAmbArrayCombine()</code>, <code>formatArrayAssociatiu()</code>, <code>validarClau()</code>, <code>validarValor()</code>, <code>afegirParella()</code>, <code>modificarParella()</code>, <code>eliminarParella()</code> i <code>campsOcults()</code>.</p>
+
+<h3 id="bucles">Combinar amb bucles</h3>
+<pre><code>$keys   = ["field1" =&gt; "first",    "field2" =&gt; "second", "field3" =&gt; "third"];
+$values = ["field1value" =&gt; "dinosaur", "field2value" =&gt; "pig", "field3value" =&gt; "platypus"];</code></pre>
+<p>Les claus originals (<code>field1</code>, <code>field1value</code>…) no ens serveixen, perquè volem els <em>valors</em> de <code>$keys</code> com a claus noves. Com que els dos arrays tenen claus diferents, no els podem recórrer junts per clau. La solució és <code>array_values()</code>, que els converteix en llistes indexades:</p>
+<pre><code>function combinarAmbBucles(array $keys, array $values): array
+{
+    if (count($keys) !== count($values)) {
+        throw new InvalidArgumentException('Els dos arrays han de tenir el mateix nombre d\'elements.');
+    }
+    $llistaClaus  = array_values($keys);      <span class="c">// [0 =&gt; "first", 1 =&gt; "second", 2 =&gt; "third"]</span>
+    $llistaValors = array_values($values);    <span class="c">// [0 =&gt; "dinosaur", 1 =&gt; "pig", 2 =&gt; "platypus"]</span>
+
+    $resultat = [];
+    for ($i = 0; $i &lt; count($llistaClaus); $i++) {
+        $resultat[$llistaClaus[$i]] = $llistaValors[$i];   <span class="c">// "first" =&gt; "dinosaur"</span>
+    }
+    return $resultat;
+}</code></pre>
+
+<h3 id="combine">Combinar amb array_combine()</h3>
+<p><code>array_combine($a, $b)</code> fa exactament el mateix en una línia: agafa els <strong>valors</strong> del primer array com a claus i els <strong>valors</strong> del segon com a valors. Les claus dels dos arrays d'entrada s'ignoren. Si les mides no coincideixen, PHP 8 llança un <code>ValueError</code>. Per això ho comprovem abans i llancem el nostre propi error, amb un missatge clar.</p>
+<p>La pàgina compara els dos resultats amb <code>===</code>, que vol dir mateixes claus, mateixos valors i <em>mateix ordre</em>, i mostra un indicador verd si coincideixen.</p>
+
+<h3 id="excepcions">Gestió d'errors amb excepcions</h3>
+<p>El PDF demana gestionar possibles errors. Les funcions <strong>no imprimeixen res</strong>: si alguna cosa no quadra, llancen una excepció:</p>
+<pre><code>function afegirParella(array $parelles, string $clau, string $valor): array
+{
+    if (array_key_exists($clau, $parelles)) {
+        throw new InvalidArgumentException("La clau \"$clau\" ja existeix.");
+    }
+    $parelles[$clau] = $valor;
+    return $parelles;
+}</code></pre>
+<p>La pàgina les captura i decideix com mostrar-les:</p>
+<pre><code>try {
+    switch ($accio) {
+        case 'afegir':    $parelles = afegirParella($parelles, $clau, $valor);    break;
+        case 'modificar': $parelles = modificarParella($parelles, $clau, $valor); break;
+        case 'eliminar':  $parelles = eliminarParella($parelles, $clau);          break;
+        default: throw new InvalidArgumentException('Acció desconeguda.');
+    }
+} catch (InvalidArgumentException $ex) {
+    $errors[] = $ex-&gt;getMessage();
+}</code></pre>
+<p>Avantatges d'aquest patró:</p>
+<ul>
+    <li>Les funcions són <strong>reutilitzables</strong>: no saben res de Bootstrap ni d'HTML.</li>
+    <li>Quan es llança una excepció, l'execució salta directament al <code>catch</code>. L'array no s'arriba a modificar, així que no queda a mitges.</li>
+    <li>El mateix patró es reutilitza a l'exercici 4.</li>
+</ul>
+
+<h3 id="key-exists">array_key_exists, isset i unset</h3>
+<ul>
+    <li><code>array_key_exists($clau, $arr)</code> indica si la clau existeix, sigui quin sigui el valor.</li>
+    <li><code>isset($arr[$clau])</code> retorna <code>false</code> si la clau existeix però el valor és <code>null</code>. Per comprovar "existeix aquesta clau?" és més correcte <code>array_key_exists</code>.</li>
+    <li><code>unset($arr[$clau])</code> elimina la parella de l'array.</li>
+</ul>
+
+<h3 id="camps-ocults">campsOcults(): guardar qualsevol array</h3>
+<p>A l'exercici 2 els camps ocults s'escrivien a mà amb un <code>foreach</code>. Per als arrays associatius (i després la matriu) es va crear una funció genèrica i <strong>recursiva</strong>:</p>
+<pre><code>function campsOcults(string $nom, array $dades): string
+{
+    $html = '';
+    foreach ($dades as $clau =&gt; $valor) {
+        $nomCamp = $nom . '[' . $clau . ']';
+        if (is_array($valor)) {
+            $html .= campsOcults($nomCamp, $valor);   <span class="c">// es crida a si mateixa</span>
+        } else {
+            $html .= '&lt;input type="hidden" name="' . e($nomCamp) . '" value="' . e($valor) . '"&gt;' . "\n";
+        }
+    }
+    return $html;
+}</code></pre>
+<div class="table-wrap">
+<table>
+    <tr><th>Crida</th><th>Genera</th></tr>
+    <tr><td><code>campsOcults('parelles', ['first' =&gt; 'dinosaur'])</code></td><td><code>name="parelles[first]" value="dinosaur"</code></td></tr>
+    <tr><td><code>campsOcults('alumnes', ['Bàsic' =&gt; ['Anglès' =&gt; ['Anna']]])</code></td><td><code>name="alumnes[Bàsic][Anglès][0]" value="Anna"</code></td></tr>
+</table>
+</div>
+<p>Quan PHP rep <code>parelles[first]=dinosaur</code>, reconstrueix automàticament l'array associatiu a <code>$_POST['parelles']</code>. Amb diversos nivells de <code>[ ]</code>, construeix arrays niats.</p>
+
+<h3 id="fila">Un formulari per fila</h3>
+<p>Cada fila de la taula és un formulari independent:</p>
+<pre><code>&lt;form action="" method="post"&gt;
+    &lt;?= campsOcults('parelles', $parelles) ?&gt;               <span class="c">&lt;!-- tot l'estat --&gt;</span>
+    &lt;input type="hidden" name="clau" value="second"&gt;        <span class="c">&lt;!-- quina fila és --&gt;</span>
+    &lt;input type="text"   name="valor" value="pig"&gt;           <span class="c">&lt;!-- editable --&gt;</span>
+    &lt;button name="accio" value="modificar"&gt;Modificar&lt;/button&gt;
+    &lt;button name="accio" value="eliminar"&gt;Eliminar&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+<p>El valor del botó clicat arriba com a <code>$_POST['accio']</code>, i el <code>switch</code> decideix què fer.</p>
+
+<h3 id="regex">Validar les claus amb una expressió regular</h3>
+<p>La clau acaba dins de <code>name="parelles[...]"</code>, així que no pot contenir qualsevol cosa: un <code>]</code> trencaria l'estructura. Fem servir:</p>
+<pre><code>preg_match('/^[\p{L}\p{N}_\- ]{1,30}$/u', $clau) === 1</code></pre>
+<div class="table-wrap">
+<table>
+    <tr><th>Part</th><th>Significat</th></tr>
+    <tr><td><code>^ … $</code></td><td>tot el text, de principi a fi</td></tr>
+    <tr><td><code>\p{L}</code></td><td>qualsevol lletra Unicode (també à, ç, ñ…)</td></tr>
+    <tr><td><code>\p{N}</code></td><td>qualsevol número</td></tr>
+    <tr><td><code>_\- </code></td><td>guió baix, guió i espai</td></tr>
+    <tr><td><code>{1,30}</code></td><td>entre 1 i 30 caràcters</td></tr>
+    <tr><td><code>/u</code></td><td>mode UTF-8 (necessari per a <code>\p{…}</code> i els accents)</td></tr>
+</table>
+</div>
+<p>L'enllaç <strong>Restaurar</strong> és un simple <code>&lt;a href="ex3.php"&gt;</code>: és una petició GET sense camps ocults, així que la pàgina torna a l'estat inicial.</p>
+
+<div class="box ok">
+    <strong>Comprovat</strong>
+    <p>Els dos mètodes donen <code>["first" =&gt; "dinosaur", "second" =&gt; "pig", "third" =&gt; "platypus"]</code>. Afegir, modificar i eliminar funcionen. Casos d'error: clau duplicada, clau amb <code>&lt;b&gt;</code>, clau inexistent i valor buit.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="ex4"><span class="num">5.</span>Exercici 4: Gestió d'Acadèmia d'Idiomes</h2>
+
+<p><strong>Què demana:</strong> una matriu de nivells (Bàsic, Mitjà, Perfeccionament) × idiomes (Anglès, Francès, Alemany, Rus), les sis funcions d'estadística, formularis per afegir, eliminar i moure alumnes, estadístiques en taula i una cerca d'alumne pel nom que indiqui a quin grup pertany.</p>
+<p><strong>Funcions creades:</strong> les sis demanades (<code>comptarTotalAlumnes</code>, <code>comptarTotalPerIdioma</code>, <code>buscarGrupMesNombros</code>, <code>buscarGrupMenysNombros</code>, <code>calcularMitjanaPerNivell</code>, <code>calcularMitjanaPerIdioma</code>) i, a més, <code>crearAcademiaBuida</code>, <code>validarNomAlumne</code>, <code>reconstruirAcademia</code>, <code>comptarTotalPerNivell</code>, <code>buscarGrupAlumne</code>, <code>cercarAlumne</code>, <code>llistarAlumnes</code>, <code>afegirAlumne</code>, <code>eliminarAlumne</code> i <code>moureAlumne</code>.</p>
+
+<h3 id="matriu">La matriu (array multidimensional)</h3>
+<pre><code>$academia = [
+    'Bàsic' =&gt; [
+        'Anglès'  =&gt; ['Anna', 'Marc', 'Laia', 'Pau', 'Júlia'],
+        'Francès' =&gt; ['Jordi', 'Marta'],
+        'Alemany' =&gt; ['Núria', 'Oriol', 'Clara'],
+        'Rus'     =&gt; ['Pol'],
+    ],
+    'Mitjà' =&gt; [ ... ],
+    'Perfeccionament' =&gt; [ ... ],
+];
+
+$academia['Bàsic']['Anglès']      <span class="c">// ['Anna', 'Marc', 'Laia', 'Pau', 'Júlia']</span>
+$academia['Bàsic']['Anglès'][0]   <span class="c">// 'Anna'</span>
+count($academia['Bàsic']['Anglès']) <span class="c">// 5 alumnes en aquest grup</span></code></pre>
+<p>Conceptualment és una taula de 2 dimensions (files = nivells, columnes = idiomes), però cada cel·la és una llista de noms, per tant són <strong>3 nivells d'array</strong>. Desar els noms, i no només un número, és el que permet cercar, eliminar i moure alumnes concrets.</p>
+
+<h3 id="funcions-ex4">Les funcions estadístiques: foreach niats</h3>
+<p>Totes segueixen el mateix esquema. Només canvia què acumulen:</p>
+<pre><code>foreach ($academia as $nivell =&gt; $perIdioma) {          <span class="c">// files</span>
+    foreach ($perIdioma as $idioma =&gt; $alumnes) {       <span class="c">// columnes</span>
+        <span class="c">// count($alumnes) = mida del grup $nivell - $idioma</span>
+    }
+}</code></pre>
+<div class="table-wrap">
+<table>
+    <tr><th>Funció</th><th>Què fa dins del bucle</th><th>Retorna</th></tr>
+    <tr><td><code>comptarTotalAlumnes</code></td><td><code>$total += count($alumnes)</code></td><td><code>int</code></td></tr>
+    <tr><td><code>comptarTotalPerIdioma</code></td><td><code>$totals[$idioma] = ($totals[$idioma] ?? 0) + count($alumnes)</code></td><td><code>[idioma =&gt; n]</code></td></tr>
+    <tr><td><code>comptarTotalPerNivell</code></td><td>igual però per <code>$nivell</code></td><td><code>[nivell =&gt; n]</code></td></tr>
+    <tr><td><code>buscarGrupMesNombros</code></td><td>guarda el grup si <code>count</code> és més gran que el millor fins ara</td><td><code>['nivell', 'idioma', 'total']</code></td></tr>
+    <tr><td><code>buscarGrupMenysNombros</code></td><td>igual però amb <code>&lt;</code></td><td><code>['nivell', 'idioma', 'total']</code></td></tr>
+    <tr><td><code>calcularMitjanaPerNivell</code></td><td>total del nivell ÷ nombre d'idiomes (4)</td><td><code>[nivell =&gt; mitjana]</code></td></tr>
+    <tr><td><code>calcularMitjanaPerIdioma</code></td><td>total de l'idioma ÷ nombre de nivells (3)</td><td><code>[idioma =&gt; mitjana]</code></td></tr>
+</table>
+</div>
+<p>L'operador <code>?? 0</code> a <code>comptarTotalPerIdioma</code> evita l'avís "Undefined array key" la primera vegada que es troba un idioma. Les mitjanes són <em>alumnes per grup</em>: per exemple, si Bàsic té 11 alumnes repartits en 4 idiomes, la mitjana és 2.75 alumnes per grup. En cas d'empat, el grup més (o menys) nombrós és el primer que es troba, perquè la comparació és estricta (<code>&gt;</code> i no <code>&gt;=</code>).</p>
+
+<h3 id="reconstruir">Reconstruir l'estat: el problema dels grups buits</h3>
+<p><code>campsOcults('alumnes', $academia)</code> genera camps com <code>alumnes[Bàsic][Anglès][0]=Anna</code>, i PHP els torna a convertir en matriu. Però <strong>un grup sense alumnes no genera cap camp</strong>, i en tornar desapareixeria de la matriu. Les taules es quedarien sense aquella columna.</p>
+<p>Per això <code>reconstruirAcademia()</code> parteix d'una matriu buida completa i hi va afegint només el que és vàlid:</p>
+<pre><code>function reconstruirAcademia($dades, array $nivells, array $idiomes, int &amp;$descartats = 0): array
+{
+    $academia = crearAcademiaBuida($nivells, $idiomes);   <span class="c">// tots els grups, buits</span>
+    $descartats = 0;
+
+    foreach ((array) $dades as $nivell =&gt; $perIdioma) {
+        foreach ((array) $perIdioma as $idioma =&gt; $noms) {
+            if (!in_array($nivell, $nivells, true) || !in_array($idioma, $idiomes, true)) {
+                $descartats++;                             <span class="c">// nivell/idioma inventat</span>
+                continue;
+            }
+            foreach ((array) $noms as $nom) {
+                if (!is_string($nom) || !validarNomAlumne($nom) || buscarGrupAlumne($academia, $nom) !== null) {
+                    $descartats++;                         <span class="c">// nom invàlid o duplicat</span>
+                    continue;
+                }
+                $academia[$nivell][$idioma][] = $nom;
+            }
+        }
+    }
+    return $academia;
+}</code></pre>
+<ul>
+    <li><code>(array) $dades</code> força que sigui un array, encara que algú enviï un text en lloc d'un array.</li>
+    <li><code>int &amp;$descartats</code> es passa <strong>per referència</strong>: la funció modifica directament la variable de qui la crida. És una manera de "retornar" un segon valor (el comptador de descartats) a més de la matriu.</li>
+</ul>
+
+<h3 id="post-get">POST i GET a la mateixa pàgina</h3>
+<ul>
+    <li><strong>Afegir, eliminar i moure</strong> modifiquen dades, així que van per POST.</li>
+    <li><strong>Cercar</strong> és una consulta, així que va per GET.</li>
+</ul>
+<p>Com que l'estat ha de viatjar en tots dos casos, el formulari de cerca també porta els camps ocults (en aquest cas, a la URL). Aquesta línia tria d'on es llegeix l'estat:</p>
+<pre><code>$peticio = $_SERVER['REQUEST_METHOD'] === 'POST' ? $_POST : $_GET;
+
+if (isset($peticio['estat'])) {
+    $academia = reconstruirAcademia($peticio['alumnes'] ?? [], $nivells, $idiomes, $descartats);
+} else {
+    $academia = $academiaInicial;           <span class="c">// primera visita</span>
+}</code></pre>
+<p>El camp ocult <code>estat=1</code> és un "marcador". Sense ell, no es podria distingir la <em>primera visita</em> (cal carregar les dades inicials) d'una acadèmia on <em>s'han eliminat tots els alumnes</em> (no arriba cap camp <code>alumnes</code>, però l'acadèmia ha d'estar buida, no reiniciada).</p>
+<p>L'HTML de l'estat es genera una sola vegada a <code>$estat</code> i es reutilitza en els quatre formularis.</p>
+
+<h3 id="unics">Noms únics i funcions mb_</h3>
+<p>Decisió de disseny: <strong>no hi pot haver dos alumnes amb el mateix nom</strong> (sense distingir majúscules). Així:</p>
+<ul>
+    <li>Eliminar i moure només necessiten el nom, que es tria d'un <code>&lt;select&gt;</code>.</li>
+    <li><code>buscarGrupAlumne($academia, $nom)</code> respon directament a l'enunciat: <em>"cercar un alumne pel nom i mostrar a quin grup pertany"</em>.</li>
+</ul>
+<pre><code>if (mb_strtolower($alumne) === mb_strtolower($nom)) {
+    return ['nivell' =&gt; $nivell, 'idioma' =&gt; $idioma, 'nom' =&gt; $alumne];
+}</code></pre>
+<p>Es fa servir <code>mb_strtolower</code> i no <code>strtolower</code> perquè els noms porten accents (Júlia, Sílvia, Lucía). Les funcions <code>mb_</code> (<em>multibyte</em>) entenen UTF-8. <code>strtolower</code> treballa byte a byte i no converteix bé "Í" a "í". Pel mateix motiu, la cerca parcial (<code>cercarAlumne</code>) fa servir <code>mb_stripos</code>.</p>
+<p>El nom es valida amb <code>/^\p{L}[\p{L} '\-]{1,39}$/u</code>: ha de començar per lletra i pot contenir lletres, espais, apòstrof i guió (per exemple <em>Maria-Pia</em> o <em>D'Arcy</em>), fins a 40 caràcters.</p>
+
+<h3 id="splice">Eliminar d'una llista: array_search i array_splice</h3>
+<pre><code>$posicio = array_search($grup['nom'], $alumnes, true);   <span class="c">// on és? (p. ex. 2)</span>
+array_splice($alumnes, $posicio, 1);                      <span class="c">// treu 1 element en aquesta posició</span></code></pre>
+<div class="box note">
+    <strong>Per què no unset?</strong>
+    <p><code>unset($alumnes[2])</code> deixaria un forat als índexs: <code>[0 =&gt; 'Anna', 1 =&gt; 'Marc', 3 =&gt; 'Pau']</code>. <code>array_splice</code> <strong>reindexa</strong> la llista (<code>0, 1, 2</code>). Per a un array associatiu (exercici 3) <code>unset</code> és correcte, perquè les claus tenen significat. Per a una llista ordenada és millor <code>array_splice</code>.</p>
+</div>
+
+<h3 id="moure">Moure = eliminar + afegir</h3>
+<pre><code>function moureAlumne(array $academia, string $nom, string $nivellDesti, string $idiomaDesti): array
+{
+    $grup = buscarGrupAlumne($academia, $nom);
+    if ($grup === null)                         throw new InvalidArgumentException("No s'ha trobat l'alumne \"$nom\".");
+    if (!isset($academia[$nivellDesti][$idiomaDesti])) throw new InvalidArgumentException('El grup destí no existeix.');
+    if ($grup['nivell'] === $nivellDesti &amp;&amp; $grup['idioma'] === $idiomaDesti)
+        throw new InvalidArgumentException("{$grup['nom']} ja és al grup $nivellDesti - $idiomaDesti.");
+
+    $academia = eliminarAlumne($academia, $grup['nom']);       <span class="c">// reutilitza</span>
+    $academia[$nivellDesti][$idiomaDesti][] = $grup['nom'];
+    return $academia;
+}</code></pre>
+<p>Es reutilitza <code>eliminarAlumne()</code> en lloc de repetir codi. Abans es comprova tot el que podria anar malament: que l'alumne existeixi, que el grup destí existeixi i que no sigui el mateix grup.</p>
+
+<h3 id="ressaltar">Ressaltar els resultats de la cerca a la matriu</h3>
+<pre><code>$nomsTrobats = array_column($resultatsCerca, 'nom');   <span class="c">// ['Ferran', 'Joan', 'Kilian', ...]</span>
+...
+&lt;span class="badge &lt;?= in_array($alumne, $nomsTrobats, true) ? 'text-bg-warning' : 'text-bg-light border' ?&gt;"&gt;</code></pre>
+<p><code>array_column()</code> extreu una sola "columna" d'un array d'arrays. Aquí treu els noms dels resultats de la cerca, i en pintar la matriu, els que hi són surten en groc.</p>
+
+<div class="box ok">
+    <strong>Comprovat</strong>
+    <p>Afegir Xavi a Mitjà-Rus: total de 30 a 31. Moure Anna a Perfeccionament-Alemany: totals recalculats. Cerca "an": Ferran, Joan, Kilian, Anna, cadascun amb el seu grup. Errors: nom repetit (<code>anna</code>), nom amb <code>&lt;b&gt;</code>, moure al mateix grup, nivell inventat i alumne inexistent. Estat manipulat (nivell "Expert", nom <code>&lt;script&gt;</code>): els 2 valors es descarten.</p>
+</div>
+<div class="box note">
+    <strong>Anècdota de les proves</strong>
+    <p>La primera prova automàtica es va fer amb <code>curl</code> des del terminal de Windows, i tots els noms i nivells amb accent (Bàsic, Mitjà) fallaven. No era cap error del codi: Windows passava els arguments a curl amb una altra codificació (no UTF-8). En repetir la prova dins del contenidor Linux, tot funcionava. El navegador sempre envia UTF-8, així que en l'ús real no passa.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="lliurament"><span class="num">6.</span>Lliurament</h2>
+
+<h3>README.md</h3>
+<p>Cobreix el punt "Instruccions d'instal·lació" dels entregables:</p>
+<ul>
+    <li>requisits (PHP 8 i connexió a Internet per al CDN de Bootstrap i Chart.js);</li>
+    <li>tres maneres d'executar-ho: Docker, <code>php -S localhost:8000 -t src</code> o XAMPP;</li>
+    <li>l'estructura de fitxers i una taula de funcions per exercici;</li>
+    <li>les decisions de disseny (camps ocults, <code>e()</code>, excepcions, °F intern, noms únics).</li>
+</ul>
+
+<h3>El zip</h3>
+<p><code>Amargant_Esteve_PHP-TASCA-03-Includes i Arrays en PHP.zip</code> conté <code>README.md</code> i <code>src/</code>, el mateix format que la Tasca 2. No inclou el PDF ni els fitxers <code>Zone.Identifier</code> que crea Windows en descarregar fitxers.</p>
+<p>S'ha creat amb el mòdul <code>zipfile</code> de Python des de WSL i no amb <code>Compress-Archive</code> de PowerShell 5.1. Aquest últim desa les rutes amb <code>\</code>, i en obrir el zip a Linux o macOS poden aparèixer fitxers anomenats literalment <code>src\ex1.php</code> en lloc de carpetes. L'estàndard ZIP fa servir <code>/</code>.</p>
+
+<h3>Verificació final</h3>
+<ul>
+    <li><code>php -l</code> (comprovació de sintaxi) a tots els fitxers: cap error.</li>
+    <li>Les 5 pàgines responen 200 i no contenen cap <em>warning</em>, <em>notice</em> ni <em>deprecated</em> de PHP.</li>
+</ul>
+
+<!-- ============================================================ -->
+<h2 id="requisits"><span class="num">7.</span>Requisits del PDF i on es compleixen</h2>
+<div class="table-wrap">
+<table>
+    <tr><th>Requisit</th><th>On / com</th></tr>
+    <tr><td>Bootstrap per a l'estil</td><td><code>header.php</code> (CSS) i <code>footer.php</code> (JS), des del CDN jsDelivr</td></tr>
+    <tr><td>Includes i requires</td><td><code>require_once __DIR__ . '/includes/...'</code> a totes les pàgines</td></tr>
+    <tr><td>Funcions reutilitzables</td><td>Totes a <code>includes/functions.php</code>, comentades amb PHPDoc</td></tr>
+    <tr><td>Validació de formularis</td><td><code>validarTemperatura</code>, <code>validarClau</code>, <code>validarValor</code>, <code>validarNomAlumne</code>, <code>in_array(..., true)</code>, límits de llargada</td></tr>
+    <tr><td>Gestió d'errors</td><td><code>InvalidArgumentException</code> + <code>try/catch</code> + <code>mostrarErrors()</code></td></tr>
+    <tr><td>Formularis al mateix fitxer</td><td><code>action=""</code> a tots</td></tr>
+    <tr><td>GET per cercar i filtrar</td><td>ex1 (cerca i lletra), ex4 (cerca d'alumne)</td></tr>
+    <tr><td>POST per afegir, modificar i eliminar</td><td>ex2 (afegir), ex3 (afegir, modificar, eliminar), ex4 (afegir, eliminar, moure)</td></tr>
+    <tr><td>Estat en camps ocults</td><td>ex2 <code>temps[]</code>, ex3 <code>parelles[clau]</code>, ex4 <code>alumnes[nivell][idioma][]</code> + <code>estat</code></td></tr>
+    <tr><td>Escapar la sortida</td><td><code>e()</code> = <code>htmlspecialchars(..., ENT_QUOTES, 'UTF-8')</code>; <code>json_encode(..., JSON_HEX_TAG)</code> per al JavaScript</td></tr>
+    <tr><td>Ordenació i filtrat d'arrays</td><td><code>asort</code>, <code>sort</code>, <code>array_filter</code>, <code>array_slice</code></td></tr>
+    <tr><td>Arrays associatius i multidimensionals</td><td>ex1, ex3 (associatius), ex4 (matriu de 3 nivells)</td></tr>
+</table>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="referencia"><span class="num">8.</span>Referència ràpida de funcions de PHP utilitzades</h2>
+<div class="table-wrap">
+<table>
+    <tr><th>Funció</th><th>Què fa</th><th>Exercici</th></tr>
+    <tr><td><code>asort($a, $flags)</code></td><td>Ordena per valor mantenint les claus</td><td>1</td></tr>
+    <tr><td><code>sort($a)</code></td><td>Ordena per valor i reindexa (perd les claus)</td><td>1, 2, 4</td></tr>
+    <tr><td><code>array_filter($a, $fn, $mode)</code></td><td>Es queda els elements per als quals <code>$fn</code> retorna <code>true</code></td><td>1</td></tr>
+    <tr><td><code>array_map($fn, $a)</code></td><td>Aplica <code>$fn</code> a cada element i retorna un array nou</td><td>2</td></tr>
+    <tr><td><code>array_keys($a)</code> / <code>array_values($a)</code></td><td>Retorna només les claus / només els valors (reindexats)</td><td>1, 3</td></tr>
+    <tr><td><code>array_unique($a)</code></td><td>Treu els valors repetits</td><td>1</td></tr>
+    <tr><td><code>array_sum($a)</code></td><td>Suma tots els valors</td><td>2</td></tr>
+    <tr><td><code>array_slice($a, $inici, $n)</code></td><td>Retorna un tros de l'array (inici negatiu = des del final)</td><td>2</td></tr>
+    <tr><td><code>array_combine($k, $v)</code></td><td>Crea un array amb els valors de <code>$k</code> com a claus i els de <code>$v</code> com a valors</td><td>3</td></tr>
+    <tr><td><code>array_key_exists($k, $a)</code></td><td>Indica si la clau existeix (encara que el valor sigui <code>null</code>)</td><td>3</td></tr>
+    <tr><td><code>array_search($v, $a, true)</code></td><td>Retorna la clau o posició d'un valor, o <code>false</code></td><td>4</td></tr>
+    <tr><td><code>array_splice($a, $pos, $n)</code></td><td>Elimina <code>$n</code> elements des de <code>$pos</code> i reindexa</td><td>4</td></tr>
+    <tr><td><code>array_merge($a, $b)</code></td><td>Uneix arrays</td><td>4</td></tr>
+    <tr><td><code>array_column($a, $col)</code></td><td>Extreu una columna d'un array d'arrays</td><td>4</td></tr>
+    <tr><td><code>in_array($v, $a, true)</code></td><td>Indica si el valor és a l'array (amb <code>true</code>: estricte)</td><td>1, 4</td></tr>
+    <tr><td><code>count($a)</code></td><td>Nombre d'elements</td><td>tots</td></tr>
+    <tr><td><code>max($a)</code> / <code>min($a)</code></td><td>Valor màxim / mínim</td><td>2</td></tr>
+    <tr><td><code>unset($a[$k])</code></td><td>Elimina un element (no reindexa)</td><td>3</td></tr>
+    <tr><td><code>stripos</code> / <code>mb_stripos</code></td><td>Posició d'un text dins d'un altre, sense distingir majúscules</td><td>1, 4</td></tr>
+    <tr><td><code>mb_strtolower</code> / <code>strtoupper</code></td><td>Passa a minúscules (UTF-8) / majúscules</td><td>1, 4</td></tr>
+    <tr><td><code>mb_strlen($s)</code></td><td>Llargada en caràcters (no bytes)</td><td>1, 3, 4</td></tr>
+    <tr><td><code>trim($s)</code></td><td>Treu els espais del principi i del final</td><td>tots</td></tr>
+    <tr><td><code>implode($sep, $a)</code></td><td>Uneix els elements d'un array en un string</td><td>3</td></tr>
+    <tr><td><code>preg_match($regex, $s)</code></td><td>Comprova si un text compleix una expressió regular</td><td>3, 4</td></tr>
+    <tr><td><code>filter_var($v, FILTER_VALIDATE_FLOAT)</code></td><td>Valida i converteix a número decimal</td><td>2</td></tr>
+    <tr><td><code>round($n, 2)</code></td><td>Arrodoneix a 2 decimals</td><td>2</td></tr>
+    <tr><td><code>number_format($n, 2, '.', '')</code></td><td>Formata un número amb 2 decimals</td><td>2, 4</td></tr>
+    <tr><td><code>intdiv($a, $b)</code></td><td>Divisió entera</td><td>2</td></tr>
+    <tr><td><code>htmlspecialchars($s, ENT_QUOTES, 'UTF-8')</code></td><td>Escapa el text per a HTML (anti-XSS)</td><td>tots</td></tr>
+    <tr><td><code>json_encode($v, JSON_HEX_TAG)</code></td><td>Converteix un valor PHP a JSON, segur dins <code>&lt;script&gt;</code></td><td>2</td></tr>
+    <tr><td><code>basename($ruta)</code></td><td>Nom del fitxer d'una ruta</td><td>header</td></tr>
+</table>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="errors"><span class="num">9.</span>Errors típics que s'han evitat</h2>
+<div class="table-wrap">
+<table>
+    <tr><th>Error</th><th>Què passa</th><th>Solució aplicada</th></tr>
+    <tr><td><code>if (stripos(...) != false)</code></td><td>Una coincidència a la posició 0 es tracta com "no trobat"</td><td><code>!== false</code></td></tr>
+    <tr><td><code>sort()</code> en un array associatiu</td><td>Es perden les claus (els països)</td><td><code>asort()</code></td></tr>
+    <tr><td><code>unset()</code> en una llista</td><td>Queden forats als índexs</td><td><code>array_splice()</code></td></tr>
+    <tr><td><code>isset()</code> per saber si existeix una clau</td><td>Dona <code>false</code> si el valor és <code>null</code></td><td><code>array_key_exists()</code></td></tr>
+    <tr><td><code>include</code> dues vegades de <code>functions.php</code></td><td><code>Cannot redeclare function</code></td><td><code>require_once</code></td></tr>
+    <tr><td><code>in_array()</code> sense <code>true</code></td><td>Comparacions febles: <code>"0" == false</code>…</td><td><code>in_array($v, $a, true)</code></td></tr>
+    <tr><td><code>strlen</code> / <code>strtolower</code> amb accents</td><td>Compten bytes / no converteixen bé les lletres accentuades</td><td><code>mb_strlen</code>, <code>mb_strtolower</code>, <code>mb_stripos</code></td></tr>
+    <tr><td>Confiar en els camps ocults</td><td>L'usuari els pot editar amb F12</td><td>Es tornen a validar a cada petició</td></tr>
+    <tr><td>Grups buits que desapareixen</td><td>Un array buit no genera cap camp ocult</td><td><code>crearAcademiaBuida()</code> com a base</td></tr>
+    <tr><td>Convertir °F→°C abans de calcular</td><td>Errors d'arrodoniment acumulats</td><td>Calcular en °F i convertir en mostrar</td></tr>
+    <tr><td>Mostrar dades sense escapar</td><td>Vulnerabilitat XSS</td><td><code>e()</code> a tota la sortida</td></tr>
+</table>
+</div>
+
+</main>
+</div>
+
+<button class="theme-btn" type="button" id="theme-btn">Canviar tema</button>
+<script>
+    (function () {
+        var root = document.documentElement;
+        try {
+            var desat = localStorage.getItem('tema');
+            if (desat) root.setAttribute('data-theme', desat);
+        } catch (e) {}
+        document.getElementById('theme-btn').addEventListener('click', function () {
+            var fosc = root.getAttribute('data-theme') === 'dark' ||
+                (!root.getAttribute('data-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            var nou = fosc ? 'light' : 'dark';
+            root.setAttribute('data-theme', nou);
+            try { localStorage.setItem('tema', nou); } catch (e) {}
+        });
+    })();
+</script>
+</body>
+</html>

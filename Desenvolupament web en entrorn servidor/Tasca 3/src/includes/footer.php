@@ -1,0 +1,9 @@
+<?php
+?>
+</main>
+<footer class="container text-center text-muted py-4 mt-4 border-top">
+    TASCA-03 · M613-B1 · Esteve Amargant
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
