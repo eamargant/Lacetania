@@ -2,7 +2,6 @@
 /**
  * ex4.php - Gestió d'Acadèmia d'Idiomes
  * Matriu nivells x idiomes amb els noms dels alumnes.
- * POST per afegir / eliminar / moure, GET per cercar. L'estat viatja en camps ocults.
  */
 require_once __DIR__ . '/includes/functions.php';
 
@@ -35,7 +34,7 @@ $academiaInicial = [
 $errors = [];
 $exit = '';
 
-// D'on llegim l'estat: POST (accions) o GET (cerca). El camp "estat" indica que ja hi ha dades desades.
+// D'on llegim l'estat: POST (accions) o GET (cerca).
 $peticio = $_SERVER['REQUEST_METHOD'] === 'POST' ? $_POST : $_GET;
 
 if (isset($peticio['estat'])) {
@@ -48,7 +47,6 @@ if (isset($peticio['estat'])) {
     $academia = $academiaInicial;
 }
 
-// Accions (POST)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $accio = $_POST['accio'] ?? '';
     $nom = trim($_POST['nom'] ?? '');
@@ -80,7 +78,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Cerca (GET)
 $cerca = trim($_GET['cerca'] ?? '');
 $resultatsCerca = [];
 if ($cerca !== '') {
@@ -92,7 +89,6 @@ if ($cerca !== '') {
     }
 }
 
-// Estadístiques
 $totalAlumnes = comptarTotalAlumnes($academia);
 $totalPerIdioma = comptarTotalPerIdioma($academia);
 $totalPerNivell = comptarTotalPerNivell($academia);
@@ -102,10 +98,8 @@ $mitjanaNivell = calcularMitjanaPerNivell($academia);
 $mitjanaIdioma = calcularMitjanaPerIdioma($academia);
 $llistaAlumnes = llistarAlumnes($academia);
 
-// Noms trobats a la cerca, per ressaltar-los a la matriu
 $nomsTrobats = array_column($resultatsCerca, 'nom');
 
-// HTML de l'estat, reutilitzat a tots els formularis
 $estat = '<input type="hidden" name="estat" value="1">' . "\n" . campsOcults('alumnes', $academia);
 
 require_once __DIR__ . '/includes/header.php';
@@ -115,7 +109,6 @@ require_once __DIR__ . '/includes/header.php';
 <?php mostrarErrors($errors); ?>
 <?php mostrarExit($exit); ?>
 
-<!-- Matriu d'alumnes -->
 <div class="card mb-4">
     <div class="card-header fw-semibold d-flex justify-content-between align-items-center">
         Alumnes per nivell i idioma
@@ -163,7 +156,6 @@ require_once __DIR__ . '/includes/header.php';
     </div>
 </div>
 
-<!-- Estadístiques -->
 <div class="row g-4 mb-4">
     <div class="col-md-4">
         <div class="card h-100">
@@ -219,7 +211,6 @@ require_once __DIR__ . '/includes/header.php';
     </div>
 </div>
 
-<!-- Formularis de gestió (POST) -->
 <div class="row g-4 mb-4">
     <div class="col-lg-4">
         <div class="card h-100">
@@ -296,7 +287,6 @@ require_once __DIR__ . '/includes/header.php';
     </div>
 </div>
 
-<!-- Cerca (GET) -->
 <div class="card">
     <div class="card-header fw-semibold">Cercar alumne</div>
     <div class="card-body">
