@@ -1,0 +1,131 @@
+
+body {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 18px;
+    max-width: 820px;
+    margin: 20px 50px;
+    color: black;
+    background-color: white;
+}
+
+.subratllat {
+    text-decoration: underline;
+}
+
+.error {
+    color: red;
+}
+
+a {
+    color: blue;
+    text-decoration: underline;
+}
+
+
+ol {
+    list-style-type: decimal;
+}
+
+ul {
+    list-style-type: disc;
+}
+
+ol.romans {
+    list-style-type: upper-roman;
+}
+
+
+table {
+    border-collapse: collapse;
+    border: 1px solid gray;
+}
+
+th,
+td {
+    border: 1px solid gray;
+    padding: 1px 2px;
+}
+
+th {
+    font-weight: bold;
+    text-align: center;
+}
+
+td {
+    text-align: left;
+}
+
+table.horitzontal {
+    width: 655px;
+}
+
+table.vertical {
+    width: 246px;
+}
+
+table.vertical th,
+table.vertical td {
+    width: 50%;
+}
+
+
+form .camp {
+    display: block;
+}
+
+form .camp label {
+    margin-right: 2px;
+}
+
+.interessos {
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+.interessos legend {
+    padding: 0;
+}
+
+.interessos label {
+    display: block;
+}
+
+form .camp label[for="comentaris"] {
+    display: block;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+select,
+textarea {
+    border: 1px solid #999;
+    border-radius: 3px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 205px;
+    height: 18px;
+}
+
+input[type="date"] {
+    width: 140px;
+}
+
+.interessos input[type="checkbox"] {
+    margin: 0 4px 0 6px;
+}
+
+textarea {
+    width: 205px;
+    height: 70px;
+}
+
+button {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}

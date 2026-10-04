@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemples HTML5</title>
+    <link rel="stylesheet" href="estils.css">
+</head>
+<body>
+
+    <h1>Exemples d'HTML5</h1>
+
+    <section>
+        <h2>Text amb diferents estils</h2>
+        <p>Aquesta és la història d'un <strong>programador</strong> que, després de beure la seva tercera tassa de cafè, va decidir que <span class="subratllat">podia conquerir el món</span>. Amb el teclat en una mà i una cervesa sense alcohol a l'altra, va intentar escriure codi perfectament formatat, però la realitat li va donar un <span class="error">error 404</span>. Els seus amics li van dir que sortís i prengués una mica d'aire fresc, però ell va respondre amb un <a href="#"><strong>"if (noCodi) {sortir = false;}"</strong></a>. Així que aquí estem, tots esperant el dia en què el codi compili sense errors. Si vols més històries com aquesta, visita <a href="#">aquesta pàgina web</a>.</p>
+    </section>
+
+    <section>
+        <h2>Llistes amb diferents numeracions</h2>
+        <h3>Llista ordenada</h3>
+        <ol>
+            <li>Obrir l'editor de text</li>
+            <li>Escriure codi</li>
+            <li>Trobar errors</li>
+            <li>Beure cafè</li>
+            <li>Repetir el procés</li>
+        </ol>
+
+        <h3>Llista desordenada</h3>
+        <ul>
+            <li>Tasses de cafè</li>
+            <li>Errors de sintaxi</li>
+            <li>Córrer darrere de terminis</li>
+            <li>Somnis d'un codi sense bugs</li>
+        </ul>
+
+        <h3>Llista amb números romans</h3>
+        <ol class="romans">
+            <li>Estudiar JavaScript</li>
+            <li>Fer pràctiques amb Python</li>
+            <li>Descobrir frameworks</li>
+            <li>Desenvolupar projectes</li>
+        </ol>
+    </section>
+
+    <section>
+        <h2>Exemples de taules</h2>
+
+        <h3>Taula horitzontal</h3>
+        <table class="horitzontal">
+            <thead>
+                <tr>
+                    <th rowspan="2">Nom</th>
+                    <th colspan="2">Informació Personal</th>
+                    <th colspan="2">Contacte</th>
+                </tr>
+                <tr>
+                    <th>Edat</th>
+                    <th>Ciutat</th>
+                    <th>Telèfon</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Maria</td>
+                    <td>25</td>
+                    <td>Barcelona</td>
+                    <td>612345678</td>
+                    <td>maria@example.com</td>
+                </tr>
+                <tr>
+                    <td>Pere</td>
+                    <td>30</td>
+                    <td>Girona</td>
+                    <td>623456789</td>
+                    <td>pere@example.com</td>
+                </tr>
+                <tr>
+                    <td>Joan</td>
+                    <td>22</td>
+                    <td>Tarragona</td>
+                    <td>634567890</td>
+                    <td>joan@example.com</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Taula vertical</h3>
+        <table class="vertical">
+            <thead>
+                <tr>
+                    <th>Categoria</th>
+                    <th>Descripció</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Nom</td>
+                    <td>Maria</td>
+                </tr>
+                <tr>
+                    <td>Edat</td>
+                    <td>25</td>
+                </tr>
+                <tr>
+                    <td>Ciutat</td>
+                    <td>Barcelona</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section>
+        <h2>Formulari</h2>
+        <form action="#" method="post">
+            <div class="camp">
+                <label for="nom">Nom:</label>
+                <input type="text" id="nom" name="nom">
+            </div>
+            <div class="camp">
+                <label for="email">Correu electrònic:</label>
+                <input type="email" id="email" name="email">
+            </div>
+            <div class="camp">
+                <label for="contrasenya">Contrasenya:</label>
+                <input type="password" id="contrasenya" name="contrasenya">
+            </div>
+            <div class="camp">
+                <label for="naixement">Data de naixement:</label>
+                <input type="date" id="naixement" name="naixement">
+            </div>
+            <div class="camp">
+                <label for="ciutat">Ciutat:</label>
+                <select id="ciutat" name="ciutat">
+                    <option value="barcelona">Barcelona</option>
+                    <option value="girona">Girona</option>
+                    <option value="tarragona">Tarragona</option>
+                    <option value="lleida">Lleida</option>
+                </select>
+            </div>
+            <fieldset class="interessos">
+                <legend>Interessos:</legend>
+                <label><input type="checkbox" name="interessos" value="programacio"> Programació</label>
+                <label><input type="checkbox" name="interessos" value="disseny"> Disseny</label>
+                <label><input type="checkbox" name="interessos" value="musica"> Música</label>
+            </fieldset>
+            <div class="camp">
+                <label for="comentaris">Comentaris:</label>
+                <textarea id="comentaris" name="comentaris"></textarea>
+            </div>
+            <div class="botons">
+                <button type="submit">Enviar</button>
+                <button type="reset">Cancel·lar</button>
+            </div>
+        </form>
+    </section>
+
+</body>
+</html>
