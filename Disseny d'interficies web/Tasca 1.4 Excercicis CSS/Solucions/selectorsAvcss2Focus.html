@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Ejemplo de selectores avanzados</title>
+<style>
+/* Taula: vores separades de cada cel·la (doble línia) */
+table {
+  border: 1px solid #999;
+  border-collapse: separate;
+  border-spacing: 2px;
+}
+
+th, td {
+  border: 1px solid #999;
+  padding: 0.6em 0.8em;
+}
+
+tr:first-child th {
+  background-color: #F5F5F5;
+}
+
+th[class] {
+  background-color: #E8F0FA;
+  background-repeat: no-repeat;
+  background-position: 6px center;
+  padding-left: 32px;
+}
+
+th.euro  { background-image: url(euro.png); }
+th.dolar { background-image: url(dolar.png); }
+th.libra { background-image: url(libra.png); }
+th.yen   { background-image: url(yen.png); }
+
+td {
+  text-align: right;
+}
+
+tr:nth-child(even) td {
+  background-color: #FFFFCC;
+}
+
+/* En fer hover amb el ratolí per sobre d'una fila, les seves cel·les canvien de color, per fer el foucs */
+tr:hover td {
+  background-color: #FFFF66;
+}
+</style>
+</head>
+<body>
+<table>
+  <tr>
+    <th>Cambio</th>
+    <th>Compra</th>
+    <th>Venta</th>
+    <th>Máximo</th>
+    <th>Mínimo</th>
+  </tr>
+  <tr>
+    <th class="euro">Euro/Dolar</th>
+    <td>1.25</td>
+    <td>1.25</td>
+    <td>1.25</td>
+    <td>1.24</td>
+  </tr>
+  <tr>
+    <th class="dolar">Dolar/Yen</th>
+    <td>119.01</td>
+    <td>119.05</td>
+    <td>119.82</td>
+    <td>119.82</td>
+  </tr>
+  <tr>
+    <th class="libra">Libra/Dolar</th>
+    <td>1.86</td>
+    <td>1.86</td>
+    <td>1.86</td>
+    <td>1.85</td>
+  </tr>
+  <tr>
+    <th class="yen">Yen/Euro</th>
+    <td>0.67</td>
+    <td>0.67</td>
+    <td>0.66</td>
+    <td>0.67</td>
+  </tr>
+</table>
+</body>
+</html>
