@@ -1,0 +1,14 @@
+{
+  "//": "Tasca 3 (OP1-B1-NODE-03)",
+  "name": "servidor-tasca3",
+  "version": "1.0.0",
+  "description": "Ampliació del servidor Node.js",
+  "main": "server.js",
+  "scripts": {
+    "//": "npm start arrenca el servidor; npm run dev l'arrenca i el reinicia automàticament quan es desa server.js",
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "author": "Esteve Amargant",
+  "license": "ISC"
+}
