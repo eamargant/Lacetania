@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset=utf-8 />
+        <title>La Calculadora</title>
+        <style>
+            .fila {
+                margin: 8px 0;
+            }
+            .fila input {
+                width: 28px;
+                margin-right: 4px;
+            }
+            .premut {
+                outline: 2px solid tomato;
+            }
+            #display {
+                width: 140px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>La Calculadora</h1>
+        <input type="text" id="entrada" readonly>
+        <div class="fila">
+            <input type="button" value="7" data-tecla="7" onclick="prem('7')">
+            <input type="button" value="8" data-tecla="8" onclick="prem('8')">
+            <input type="button" value="9" data-tecla="9" onclick="prem('9')">
+            <input type="button" value="*" data-tecla="*" onclick="prem('*')">
+        </div>
+        <div class="fila">
+            <input type="button" value="4" data-tecla="4" onclick="prem('4')">
+            <input type="button" value="5" data-tecla="5" onclick="prem('5')">
+            <input type="button" value="6" data-tecla="6" onclick="prem('6')">
+            <input type="button" value="-" data-tecla="-" onclick="prem('-')">
+        </div>
+        <div class="fila">
+            <input type="button" value="1" data-tecla="1" onclick="prem('1')">
+            <input type="button" value="2" data-tecla="2" onclick="prem('2')">
+            <input type="button" value="3" data-tecla="3" onclick="prem('3')">
+            <input type="button" value="+" data-tecla="+" onclick="prem('+')">
+        </div>
+        <div class="fila">
+            <input type="button" value="0" data-tecla="0" onclick="prem('0')">
+            <input type="button" value="C" data-tecla="C" onclick="neteja()">
+            <input type="button" value="=" data-tecla="=" onclick="calcula()">
+            <input type="button" value="/" data-tecla="/" onclick="prem('/')">
+        </div>
+
+        <h2>Temps treballat</h2>
+        <p id="crono">00:00:00</p>
+
+        <script src="ex1.js"></script>
+    </body>
+</html>

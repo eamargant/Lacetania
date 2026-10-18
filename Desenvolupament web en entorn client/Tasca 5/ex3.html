@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset=utf-8 />
+        <title>Piano JS</title>
+        <style>
+            body {
+                background: #1e1e2e;
+                color: #eee;
+                font-family: sans-serif;
+                text-align: center;
+            }
+            #piano {
+                position: relative;
+                display: inline-flex;
+                padding: 20px;
+                background: #3b2a1f;
+                border-radius: 12px;
+                box-shadow: 0 10px 30px black;
+                user-select: none;
+            }
+            .tecla {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+                align-items: center;
+                padding-bottom: 10px;
+                box-sizing: border-box;
+                cursor: pointer;
+                font-size: 14px;
+                transition: transform 0.05s, background 0.1s;
+            }
+            .tecla span {
+                font-size: 11px;
+                opacity: 0.6;
+                text-transform: uppercase;
+            }
+            .blanca {
+                width: 60px;
+                height: 220px;
+                background: white;
+                color: #222;
+                border: 1px solid #999;
+                border-radius: 0 0 6px 6px;
+            }
+            .negra {
+                position: absolute;
+                top: 20px;
+                width: 38px;
+                height: 135px;
+                background: #111;
+                color: #ddd;
+                border-radius: 0 0 4px 4px;
+                z-index: 1;
+                font-size: 11px;
+            }
+            .blanca.active {
+                background: #ffd166;
+                transform: translateY(3px);
+            }
+            .negra.active {
+                background: #ef476f;
+                transform: translateY(3px);
+            }
+            #ultima {
+                margin-top: 20px;
+                font-size: 22px;
+                height: 30px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>🎹 Piano JS</h1>
+        <p>Toca amb el ratolí o amb el teclat (lletra a sota de cada nota)</p>
+
+        <div id="piano">
+            <div class="tecla blanca" data-note="C4">C<span>a</span></div>
+            <div class="tecla blanca" data-note="D4">D<span>s</span></div>
+            <div class="tecla blanca" data-note="E4">E<span>d</span></div>
+            <div class="tecla blanca" data-note="F4">F<span>f</span></div>
+            <div class="tecla blanca" data-note="G4">G<span>g</span></div>
+            <div class="tecla blanca" data-note="A4">A<span>h</span></div>
+            <div class="tecla blanca" data-note="B4">B<span>j</span></div>
+            <div class="tecla blanca" data-note="C5">C<span>k</span></div>
+
+            <div class="tecla negra" data-note="C#4" style="left: 61px">C#<span>w</span></div>
+            <div class="tecla negra" data-note="D#4" style="left: 121px">D#<span>e</span></div>
+            <div class="tecla negra" data-note="F#4" style="left: 241px">F#<span>t</span></div>
+            <div class="tecla negra" data-note="G#4" style="left: 301px">G#<span>y</span></div>
+            <div class="tecla negra" data-note="A#4" style="left: 361px">A#<span>u</span></div>
+        </div>
+
+        <p id="ultima"></p>
+
+        <script src="ex3.js"></script>
+    </body>
+</html>
