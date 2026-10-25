@@ -1,0 +1,38 @@
+body {
+  width: 960px;
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+}
+
+/*overflow hidden fa que agafi l'alçada dels fills */
+#contenidor {
+  overflow: hidden;
+}
+
+#dades {
+  float: left;
+  width: 260px;
+}
+
+#descripcio {
+  float: left;
+  width: 700px;
+}
+
+.columnes {
+  list-style: none;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Cada element de la llista és una columna d'un terç de l'amplada */
+.columnes li {
+  float: left;
+  width: 33.33%;
+  padding: 0 4px;
+  box-sizing: border-box;
+  text-align: justify;
+}

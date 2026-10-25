@@ -1,0 +1,33 @@
+Activitat 1.4
+
+Host Virtual utilitzant Apache
+
+Abans de modificar qualsevol fitxer de configuració s'aconsella fer una copia de l’original (cp fitxer.conf fitxer.conf.old)
+
+1. Mostra el missatge d’error “Aquesta pagina no existeix, NomAlumne” com a resultat d’un error 404 “Not found”.
+
+2. En els següents apartats crearàs un nou host virtual anomenat www.NomAlumne.cat
+
+3. Modificar el fitxer hosts per a que aquests nou domini apuntin al nostre Servidor Apache local. Comprova el correcte funcionament dels canvis realitzats.
+
+4. Crear un directori arrel per al nou domini.
+
+5. Crear els nous fitxers de configuració per al nou host virtual que gestionarà els nou domini.
+
+6. Activar els nou host virtual
+
+7. Comprovar el correcte funcionament del localhost i del nou host virtual.
+
+8. Afegir registres d’error independents al nou host virtual.
+
+9. Fer que puguem accedir al nou host virtual utilitzant els següents noms de domini. Comprovar el correcte funcionament.
+
+a. www.NomAlumne.cat (ja fet)
+
+b. NomAlumne.cat
+
+c. www.CognomAlumne.cat
+
+10. (Optativa) Realitza un stress test sobre el localhost i el nou host virtual al mateix temps. Utilitza els mateixos paràmetres que un dels stress test realitzats sobre el localhost (JMeter).
+
+Entrega: Per cada pregunta cal que expliquis quines modificacions has fet als arxius de configuració. En PDF!
