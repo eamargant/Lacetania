@@ -1,0 +1,402 @@
+/* =========================================================
+   Memory — estètica de taula de llum de fotògraf.
+   Cada casella és una diapositiva: marc clar + finestra.
+   ========================================================= */
+
+/* ---------- Tokens ---------- */
+:root {
+    /* Paleta "pel·lícula caducada": una foto en color vella perd el groc
+       i deriva cap al magenta i el cian */
+    --entorn: #B593A6;        /* fons: malva esvaït */
+    --entorn-clar: #C9AEBC;   /* panells: rosa empolsinat */
+    --entorn-hover: #D6BFCB;
+    --llum: #F7F4F6;          /* superfície de la taula de llum */
+    --marc: #FBFAF6;          /* plàstic del marc de diapositiva */
+    --marc-vora: #D9DCD6;
+    --pellicula: #34414B;     /* finestra tapada */
+    --accent: #8FD3D6;        /* cian esvaït */
+    --text: #2E1A2B;          /* tinta albergínia */
+    --text-suau: #4A2E43;
+    --llapis: #1F9D6B;        /* encert */
+    --avis: #E0413A;          /* error a les caselles */
+    --avis-text: #8E1F1A;     /* poc temps / derrota sobre el fons */
+
+    --font: "Atkinson Hyperlegible", system-ui, sans-serif;
+    --font-titol: "Bowlby One", "Atkinson Hyperlegible", sans-serif;
+    --radi-marc: 6px;
+    --durada-gir: 0.45s;
+    --gir: var(--durada-gir) cubic-bezier(.3, .7, .2, 1);
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: var(--font);
+    font-size: 1rem;
+    line-height: 1.5;
+    background: var(--entorn);
+    color: var(--text);
+}
+
+.pagina {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 3rem;
+}
+
+/* ---------- Capçalera ---------- */
+.capcalera {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1.5rem;
+    margin-bottom: 1.75rem;
+}
+
+.titol h1 {
+    margin: 0;
+    font-family: var(--font-titol);
+    font-size: clamp(2.8rem, 8vw, 4.6rem);
+    font-weight: 400;
+    line-height: 0.9;
+    letter-spacing: -0.01em;
+}
+
+.subtitol {
+    margin: 0.5rem 0 0;
+    color: var(--text-suau);
+    max-width: 38ch;
+}
+
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 0.75rem;
+}
+
+/* Selector de nivells com a control segmentat */
+.nivells {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.nivells legend {
+    padding: 0;
+    margin-bottom: 0.4rem;
+    font-size: 0.85rem;
+    color: var(--text-suau);
+}
+
+.nivell {
+    position: relative;
+    cursor: pointer;
+}
+
+.nivell input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.nivell span {
+    display: flex;
+    flex-direction: column;
+    padding: 0.45rem 0.8rem;
+    background: var(--entorn-clar);
+    border: 1px solid transparent;
+    font-size: 0.85rem;
+    line-height: 1.2;
+    transition: background-color 0.15s;
+}
+
+.nivell:first-of-type span { border-radius: 8px 0 0 8px; }
+.nivell:last-of-type span { border-radius: 0 8px 8px 0; }
+
+.nivell small {
+    color: var(--text-suau);
+    font-variant-numeric: tabular-nums;
+}
+
+.nivell:hover span { background: var(--entorn-hover); }
+
+.nivell input:checked + span {
+    background: var(--accent);
+    color: var(--text);
+    font-weight: 700;
+}
+
+.nivell input:checked + span small { color: var(--text-suau); }
+
+.nivell input:focus-visible + span {
+    outline: 2px solid var(--text);
+    outline-offset: 2px;
+}
+
+.boto-inici {
+    padding: 0.75rem 1.6rem;
+    font: inherit;
+    font-weight: 700;
+    color: var(--text);
+    background: var(--accent);
+    border: 0;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 0 0 0 var(--text);
+    transition: box-shadow 0.15s, opacity 0.2s;
+}
+
+.boto-inici:hover:not(:disabled) {
+    box-shadow: 3px 3px 0 0 var(--text);
+}
+
+.boto-inici:focus-visible {
+    outline: 2px solid var(--text);
+    outline-offset: 3px;
+}
+
+.boto-inici:disabled {
+    opacity: 0.55;
+    cursor: wait;
+}
+
+/* ---------- Taula de llum ---------- */
+.taula-llum {
+    padding: clamp(0.75rem, 2.5vw, 1.5rem);
+    border-radius: 14px;
+    background:
+        radial-gradient(ellipse at 50% 40%, #FFFFFF 0%, var(--llum) 70%);
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.6) inset,
+        0 0 60px rgba(255, 240, 248, 0.45);
+}
+
+.tauler {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: clamp(0.4rem, 1.6vw, 0.9rem);
+}
+
+/* Tauler bloquejat: no es poden clicar caselles */
+.tauler.bloquejat .casella {
+    pointer-events: none;
+}
+
+/* ---------- Casella (diapositiva) ---------- */
+.casella {
+    position: relative;
+    aspect-ratio: 1;
+    perspective: 900px;
+    cursor: pointer;
+    border-radius: var(--radi-marc);
+}
+
+.casella:focus-visible {
+    outline: 3px solid var(--text);
+    outline-offset: 3px;
+}
+
+.casella .interior {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform var(--gir);
+}
+
+/* Les dues cares comparteixen el marc; només canvia la finestra */
+.casella .cara {
+    position: absolute;
+    inset: 0;
+    padding: 11%;
+    background: var(--marc);
+    border: 1px solid var(--marc-vora);
+    border-radius: var(--radi-marc);
+    backface-visibility: hidden;
+    box-shadow: 0 1px 2px rgba(30, 42, 51, 0.18);
+}
+
+/* Finestra tapada: pel·lícula fosca amb un reflex */
+.casella .dors::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 2px;
+    background:
+        linear-gradient(125deg, rgba(255, 255, 255, 0.12) 0 30%, transparent 30%),
+        var(--pellicula);
+}
+
+.casella .davant {
+    transform: rotateY(180deg);
+}
+
+.casella .davant img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 2px;
+    user-select: none;
+}
+
+/* Estat: tapada — la diapositiva s'aixeca lleugerament */
+.casella.tapada:hover .interior {
+    transform: translateY(-3px);
+}
+
+.casella.tapada:hover .cara {
+    box-shadow: 0 6px 14px rgba(30, 42, 51, 0.22);
+}
+
+/* Estat: destapada */
+.casella.destapada .interior {
+    transform: rotateY(180deg);
+}
+
+.casella.destapada { cursor: default; }
+
+/* Estat: encertada — el marc de la diapositiva es torna verd i s'hi queda */
+.casella.encertada .davant {
+    background: var(--llapis);
+    border-color: #17805A;
+    transition: background-color 0.3s ease-out 0.25s, border-color 0.3s ease-out 0.25s;
+}
+
+/* Estat: error — parella fallada. Quan la foto acaba de girar-se, la diapositiva
+   es sacseja i el marc es torna vermell durant --durada-error (el posa joc.js);
+   després torna a blanc encara que la foto segueixi visible. */
+.casella.error {
+    animation: sacsejar var(--durada-error, 0.33s) ease-in-out var(--durada-gir);
+}
+
+.casella.error .davant {
+    animation: marc-error var(--durada-error, 0.33s) ease-out var(--durada-gir);
+}
+
+@keyframes sacsejar {
+    0%, 100% { transform: translateX(0); }
+    20%      { transform: translateX(-6px) rotate(-1.5deg); }
+    40%      { transform: translateX(5px) rotate(1deg); }
+    60%      { transform: translateX(-4px); }
+    80%      { transform: translateX(2px); }
+}
+
+@keyframes marc-error {
+    0%, 75% { background: var(--avis); border-color: #B8302A; }
+    100%    { background: var(--marc); border-color: var(--marc-vora); }
+}
+
+/* Estat: revelada — parelles no trobades en acabar el temps */
+.casella.revelada .davant img {
+    filter: grayscale(1) contrast(0.85);
+    opacity: 0.55;
+}
+
+/* Casella buida abans de començar */
+.casella.buida { cursor: default; }
+
+/* ---------- Barra d'estat ---------- */
+.estat {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.5rem 1.5rem;
+    align-items: center;
+    margin-top: 1.25rem;
+}
+
+.temps {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+}
+
+/* La llum es buida a mesura que passa el temps */
+.barra-temps {
+    flex: 1;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--entorn-clar);
+    overflow: hidden;
+}
+
+.barra-temps::before {
+    content: "";
+    display: block;
+    height: 100%;
+    width: calc(var(--progres, 1) * 100%);
+    background: var(--text);
+    transition: width 1s linear, background-color 0.3s;
+}
+
+.barra-temps.poc-temps::before { background: var(--avis-text); }
+
+.xifra {
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+}
+
+#temps {
+    font-size: 1.6rem;
+    min-width: 4.2ch;
+    text-align: right;
+}
+
+#temps.poc-temps { color: var(--avis-text); }
+
+.parelles {
+    margin: 0;
+    color: var(--text-suau);
+}
+
+.parelles .xifra {
+    font-size: 1.6rem;
+    color: var(--text);
+}
+
+.missatge {
+    grid-column: 1 / -1;
+    min-height: 1.5em;
+    margin: 0.25rem 0 0;
+    max-width: 70ch;
+}
+
+.missatge.info  { color: var(--text-suau); }
+.missatge.exit  { color: #13634A; font-weight: 700; }
+.missatge.error { color: var(--avis-text); font-weight: 700; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 640px) {
+    .pagina { padding-top: 1.5rem; }
+
+    .controls,
+    .nivells { width: 100%; }
+
+    .nivell { flex: 1; }
+
+    .nivell span {
+        align-items: center;
+        padding: 0.45rem 0.2rem;
+        font-size: 0.75rem;
+    }
+
+    .boto-inici { width: 100%; }
+
+    .casella .cara { padding: 8%; }
+}
+
+/* ---------- Moviment reduït ---------- */
+@media (prefers-reduced-motion: reduce) {
+    .casella .interior,
+    .barra-temps::before,
+    .casella.encertada .davant { transition: none; }
+
+    /* Sense sacseig: només el marc vermell */
+    .casella.error { animation: none; }
+}

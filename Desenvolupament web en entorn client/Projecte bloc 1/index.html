@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bowlby+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/estils.css">
+</head>
+<body>
+    <main class="pagina">
+        <header class="capcalera">
+            <div class="titol">
+                <h1>Memory</h1>
+                <p class="subtitol">Troba les 12 parelles de fotos abans que s'apagui la llum.</p>
+            </div>
+
+            <div class="controls">
+                <fieldset id="nivells" class="nivells">
+                    <legend>Dificultat</legend>
+                </fieldset>
+                <button id="boto-inici" class="boto-inici" type="button">Inici</button>
+            </div>
+        </header>
+
+        <section class="taula-llum" aria-label="Tauler de joc">
+            <div id="tauler" class="tauler bloquejat"></div>
+        </section>
+
+        <footer class="estat">
+            <div class="temps">
+                <div id="barra-temps" class="barra-temps" aria-hidden="true"></div>
+                <span id="temps" class="xifra">--:--</span>
+            </div>
+            <p class="parelles"><span id="parelles" class="xifra">0 / 12</span> parelles</p>
+            <p id="missatge" class="missatge info" role="status"></p>
+        </footer>
+    </main>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
