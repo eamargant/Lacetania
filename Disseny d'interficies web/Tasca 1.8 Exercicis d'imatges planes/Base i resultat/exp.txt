@@ -1,0 +1,56 @@
+Les fonts estaven creuades
+
+Al resultat, l'exercici 1 surt amb la lletra Indie Flower i el 2 amb Pacifico. A les plantilles base estava al revés, i a cap de les dues no es feia servir realment:
+- ex1: declarava Pacifico, però no carregava la font.
+- ex2: carregava Indie Flower, però no la feia servir.
+
+Les he canviat perquè quedin com al resultat.
+
+Exercici 1: alineació vertical de la imatge
+
+Cada caixa és el div, amb fons #ccc, vora negra de 2 px i border-radius: 10px. La diferència entre les quatre la fa vertical-align a la imatge:
+
+┌───────┬────────┬──────────────────────────┬────────────────────────────────────────────────────┐
+│ Caixa │ Classe │          Estil           veu                     │
+├───────┼────────┼──────────────────────────┼────────────────────────────────────────────────────┤
+│ 1     │ cap    │ per defecte (baseline)   │ el text a l'altura de la base de la imatge         │
+├───────┼────────┼──────────────────────────────────────────────────┤
+│ 2     │ .aa    │ vertical-align: text-top │ el text a dalt                                     │
+├───────┼────────┼──────────────────────────┼────────────────────────────────────────────────────┤
+│ 3     │ .bb    │ vertical-align: middle                           │
+├───────┼────────┼──────────────────────────┼────────────────────────────────────────────────────┤
+│ 4     │ .cc    │ vertical-align: bottom   │ el text a baix de tot, fins i tot la cua de la "p" │
+└───────┴────────┴──────────────────────────┴────────────────────────────────────────────────────┘
+
+Exercici 2: fons de les caixes
+
+Totes les caixes tenen la imatge rodona (border-radius: 50%, vora #ccc i vertical-align: middle) i el text blanc amb una mica d'ombra. La primera caixa no té fons i el text és gris.
+
+Les classes .aa….ee són a la imatge, però el fons s'ha de posar al div. Per això faig servir div:has(.aa), que vol dir
+"el div que conté la imatge amb la classe aa
+
+┌───────┬──────────────────────────────────────────────────────────────────────────────┐
+│ Caixa │                                     Fons                                     │
+├───────┼──────────────────────────────────────────────────────────────────────────────┤
+│ .aa   │ charlie.jpg amb repeat-x center: una fila d'imatges al mig, i la resta blanc │
+├───────┼─────────────────────────────────────────────────┤
+│ .bb   │ black amb repeat-x: una fila a dalt, i la resta negre                        │
+├───────┼──────────────────────────────────────────────────────────────────────────────┤
+│ .cc   │ background-size: contain: imatges lçada         │
+├───────┼──────────────────────────────────────────────────────────────────────────────┤
+│ .dd   │ background-size: cover: una sola i la caixa     │
+├───────┼──────────────────────────────────────────────────────────────────────────────┤
+│ .ee   │ forats.png amb repeat-x i contain: la tira de pel·lícula                     │
+└───────┴──────────────────────────────────────────────────────────────────────────────┘
+
+Si el professor no vol :has(), l'alternativa és div:nth-child(2), div:nth-child(3)… Funciona igual, però aleshores les
+classes de les imatges no es fan servir.
+
+Com veure-ho
+
+Obre els dos HTML amb el navegador i compara'ls amb Resultat\imatgePlana1.png i imatgePlana2.mp4. Les fonts es carreguen de Google Fonts, així que cal connexió a internet.
+
+Si cal retocar les mides, els valors que s'han de canviar són aquests:
+- Mida del text: font-size.
+- Espai dins de cada caixa: padding.
+- Separació entre caixes: margin.

@@ -11,3 +11,6 @@
 
 # Fitxers temporals de Code Runner
 tempCodeRunnerFile.*
+
+# Dependències de Node (es regeneren amb npm install)
+node_modules/
