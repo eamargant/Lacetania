@@ -1,0 +1,56 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #222;
+}
+
+h1 {
+    text-align: center;
+    color: #aaa;
+}
+
+/* Esfera apagada */
+.esfera {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin: 60px auto;
+    border-radius: 50%;
+    background: #122d2e;
+}
+
+/*una el·lipse fosca darrere l'esfera (z-index negatiu) */
+.esfera::after {
+    content: "";
+    display: none;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 220px;
+    height: 10px;
+    border-radius: 50%;
+    background: #000;
+    box-shadow: 0 0 20px 10px #000;
+    z-index: -1;
+}
+
+/* Llanterna*/
+.esfera::before {
+    content: "";
+    display: none;
+    position: absolute;
+    top: -40px;
+    left: -220px;
+    width: 170px;
+    height: 160px;
+    background: url(llanterna.png) no-repeat;
+}
+
+.esfera:hover {
+    background: radial-gradient(circle at 25% 25%, #0ac0bb, #122d2e);
+}
+
+.esfera:hover::after,
+.esfera:hover::before {
+    display: block;
+}
