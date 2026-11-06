@@ -1,0 +1,420 @@
+{
+  "info": {
+    "_postman_id": "9440d846-f25b-41e2-bd4a-7a535d82ef9d",
+    "name": "Tasca 4",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "58557272",
+    "_collection_link": "https://go.postman.co/collection/58557272-9440d846-f25b-41e2-bd4a-7a535d82ef9d?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "GET 1",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/productes/",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "productes",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET 2",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/productes/1",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "productes",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET 3",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/productes/99990",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "productes",
+            "99990"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET 4",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/productes/ABCDE",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "productes",
+            "ABCDE"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST 1",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"nom\":\"Tauleta\",\"preu\":349,\"categoria\":\"Informàtica\",\"stock\":5}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/productes/",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "productes",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST 2",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"nom\":\"   \",\"preu\":10,\"categoria\":\"Accessoris\",\"stock\":1}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/productes/",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "productes",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST 3",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"nom\":\"Cable\",\"preu\":\"29.99\",\"categoria\":\"Accessoris\",\"stock\":1}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/productes/",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "productes",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST 4",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"nom\":\"Cable\",\"preu\":10,\"categoria\":\"Accessoris\",\"stock\":2.5}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/productes/",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "productes",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST 5",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"nom\":\"\",\"preu\":-5,\"categoria\":\" \",\"stock\":-1}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/productes/",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "productes",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST 6",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": " {\"nom\":\"Tauleta\",\"preu\":349",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/productes/",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "productes",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PUT 1",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"nom\":\"Logitech G502 lightspeed\",\"preu\":1199.5,\"categoria\":\"Informàtica\",\"stock\":80}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/productes/1",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "productes",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PUT 2",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"nom\":\"X\",\"preu\":10,\"categoria\":\"A\",\"stock\":1}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/productes/11111111111",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "productes",
+            "11111111111"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PUT 3",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"nom\":\"\",\"preu\":\"10\",\"categoria\":\"A\",\"stock\":1.5}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/productes/1",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "productes",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE 1",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/productes/2",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "productes",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET 5",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/productes/2",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "productes",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE 2",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/productes/999",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "productes",
+            "999"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET 6",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/clients",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "clients"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": ""
+    }
+  ]
+}

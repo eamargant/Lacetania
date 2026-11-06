@@ -1,0 +1,17 @@
+{
+  "name": "servidor-Frameworks",
+  "version": "1.0.0",
+  "description": "API REST CRUD de productes amb Express",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node --watch app.js"
+  },
+  "keywords": [],
+  "author": "Esteve Amargant",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.3.0"
+  }
+}
