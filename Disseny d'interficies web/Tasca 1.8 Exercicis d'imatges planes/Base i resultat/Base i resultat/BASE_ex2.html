@@ -1,0 +1,64 @@
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+<style>
+div{
+max-width:60%;
+margin: 40px 0;
+padding: 40px 0;
+border: 2px solid black;
+border-radius: 10px;
+text-align: center;
+font-family: 'Pacifico', cursive;
+font-size: 50px;
+color: white;
+text-shadow: 2px 2px 4px black;
+}
+
+img{
+margin: 0 20px;
+border: 3px solid #ccc;
+border-radius: 50%;
+vertical-align: middle;
+}
+
+div:first-child{
+color: #aaa;
+text-shadow: none;
+}
+
+
+div:has(.a){
+background: url(charlie.jpg) repeat-x center;
+}
+
+div:has(.b){
+background: black url(charlie.jpg) repeat-x;
+}
+
+div:has(.c){
+background: black url(charlie.jpg);
+background-size: contain;
+}
+
+div:has(.d){
+background: black url(charlie.jpg);
+background-size: cover;
+}
+
+div:has(.e){
+background: black url(forats.png) repeat-x;
+background-size: contain;
+}
+</style>
+</head>
+<body>
+
+<div>Charlie <img src="charlie.jpg" alt="link"  /> Chaplin</div>
+<div>Charlie <img class="a" src="charlie.jpg" alt="link"/> Chaplin</div>
+<div>Charlie <img class="b" src="charlie.jpg" alt="link"/> Chaplin</div>
+<div>Charlie <img class="c" src="charlie.jpg" alt="link"/> Chaplin</div>
+<div>Charlie <img class="d" src="charlie.jpg" alt="link"/> Chaplin</div>
+<div>Charlie <img class="e" src="charlie.jpg" alt="link"/> Chaplin</div>
+</body>
+</html>
