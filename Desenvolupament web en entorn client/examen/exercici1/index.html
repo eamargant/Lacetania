@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ca">
+    <head>
+        <meta charset="utf-8" />
+        <title>Examen Exercici 1 - Notes dels RA</title>
+        <style>
+            body {
+                font-family: Verdana, Arial, sans-serif;
+                background: #eef2f7;
+                color: #333;
+                padding: 30px;
+            }
+            h1 {
+                text-align: center;
+                color: #2c3e50;
+            }
+            table {
+                border-collapse: collapse;
+                margin: 20px auto;
+                min-width: 650px;
+                background: white;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            }
+            th {
+                background: #2c3e50;
+                color: white;
+                padding: 12px;
+            }
+            td {
+                padding: 10px 12px;
+                border-bottom: 1px solid #ddd;
+                text-align: center;
+            }
+            tr:nth-child(even) td {
+                background: #f5f7fa;
+            }
+            tfoot td {
+                font-weight: bold;
+                background: #dfe6ee;
+            }
+            .lletra {
+                font-weight: bold;
+                color: #2980b9;
+            }
+            #ordre {
+                display: block;
+                margin: 0 auto;
+                font-size: 22px;
+                padding: 6px 18px;
+                cursor: pointer;
+                border: 1px solid #2c3e50;
+                border-radius: 6px;
+                background: white;
+            }
+            #ordre:hover {
+                background: #2c3e50;
+                color: white;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Notes dels RA del mòdul</h1>
+        <div id="resultat"></div>
+        <button id="ordre" title="Canviar l'ordre">&#8645;</button>
+        <script src="exercici1.js"></script>
+    </body>
+</html>

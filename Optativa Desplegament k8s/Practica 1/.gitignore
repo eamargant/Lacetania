@@ -1,0 +1,7 @@
+# Dades del volum de MySQL (propietat del contenidor, no es versionen)
+mysql-data/
+
+# Logs generats pel contenidor
+logs/
+backup/*.tar
+backup/.tmp-*

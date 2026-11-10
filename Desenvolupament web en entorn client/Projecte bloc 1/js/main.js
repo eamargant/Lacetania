@@ -3,9 +3,6 @@
  * Punt d'entrada: prepara la interfície i connecta els esdeveniments amb el joc.
  */
 
-import { NIVELLS, PARELLES } from './config.js';
-import { configurarJoc, iniciarPartida, partidaEnCurs, mostrarMissatge } from './joc.js';
-import { pintarTaulerBuit } from './tauler.js';
 
 // Referències als elements del DOM
 const elements = {

@@ -12,7 +12,7 @@ let segonsRestants = 0;
  * @param {function(number):void} onTick Es crida cada segon amb els segons restants
  * @param {function():void} onFi Es crida quan el temps arriba a 0
  */
-export function iniciarTemporitzador(segons, onTick, onFi) {
+function iniciarTemporitzador(segons, onTick, onFi) {
     aturarTemporitzador();
     segonsRestants = segons;
     onTick(segonsRestants);
@@ -29,13 +29,13 @@ export function iniciarTemporitzador(segons, onTick, onFi) {
 }
 
 /** Atura el compte enrere en curs (si n'hi ha). */
-export function aturarTemporitzador() {
+function aturarTemporitzador() {
     clearInterval(idInterval);
     idInterval = null;
 }
 
 /** Retorna els segons que queden de partida. */
-export function obtenirSegonsRestants() {
+function obtenirSegonsRestants() {
     return segonsRestants;
 }
 
@@ -44,7 +44,7 @@ export function obtenirSegonsRestants() {
  * @param {number} segons
  * @returns {string}
  */
-export function formatarTemps(segons) {
+function formatarTemps(segons) {
     const minuts = Math.floor(segons / 60);
     const seg = segons % 60;
     return `${String(minuts).padStart(2, '0')}:${String(seg).padStart(2, '0')}`;

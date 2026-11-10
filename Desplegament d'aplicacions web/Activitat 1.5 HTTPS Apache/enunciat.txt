@@ -1,0 +1,26 @@
+Activitat 1.5
+
+HTTPS Apache
+
+Abans de modificar qualsevol fitxer de configuració crear una copia de l'original (cp fitxer.conf fitxer.conf.old)
+
+1. Activeu el modul OpenSSL per implementar una connexió segura en Apache
+
+2. Visualitzar el fitxer de configuració corresponent per comprovar el port que utilitza Apache per a les conexions segures (https)
+
+3. Activeu el host virtual segur creat per defecte quan instal·lem Apache.
+
+4. Utilitzeuel navegador per comprovar el correcte funcionament de la connexió segura (https) al nostre localhost. Incloeu captures.
+
+5. Realitza els passos necessaris perquè quan obrim https://localhost es mostri una pàgina web vostra. Els canvis no han d'afectar a la pàgina per defecte de http://localhost, que ha de seguir funcionant.
+
+6. Deshabilitar el host virtual segur per defecte.
+
+7. Realitzar tots els passos per crear un nou host virtual per nom segur anomenat www.nom_alumne_segur.cat
+
+Nom de la clau: clauNomAlumne.key
+Nom petició certificat: peticioNomAlumne.csr
+Nom certificat autosignat: certificatNomAlumne.crt
+8. Comproveu el correcte funcionament de www.NomAlumne_segur.cat des del navegador.
+
+9.- Realitzeu la configuració necessària per a què si accediu a http es reencamini automàticament a https.
