@@ -13,7 +13,7 @@
  * @param {Array} array
  * @returns {Array}
  */
-export function barrejar(array) {
+function barrejar(array) {
     const copia = [...array];
     for (let i = copia.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -27,7 +27,7 @@ export function barrejar(array) {
  * @param {string[]} urls Imatges úniques
  * @returns {string[]} Llista amb cada imatge dues vegades, en ordre aleatori
  */
-export function crearParelles(urls) {
+function crearParelles(urls) {
     return barrejar([...urls, ...urls]);
 }
 
@@ -37,7 +37,7 @@ export function crearParelles(urls) {
  * @param {string[]} cartes URLs de les imatges en l'ordre en què s'han de col·locar
  * @param {function(HTMLElement):void} onClic Funció a cridar en clicar una casella
  */
-export function pintarTauler(tauler, cartes, onClic) {
+function pintarTauler(tauler, cartes, onClic) {
     tauler.innerHTML = '';
     tauler.classList.remove('bloquejat');
 
@@ -59,7 +59,7 @@ export function pintarTauler(tauler, cartes, onClic) {
  * @param {HTMLElement} tauler Contenidor del tauler
  * @param {number} quantitat Nombre de caselles
  */
-export function pintarTaulerBuit(tauler, quantitat) {
+function pintarTaulerBuit(tauler, quantitat) {
     tauler.innerHTML = '';
     tauler.classList.add('bloquejat');
 
@@ -108,12 +108,12 @@ function crearCasella(url, index) {
 }
 
 /** Mostra la imatge d'una casella. */
-export function destapar(casella) {
+function destapar(casella) {
     casella.classList.replace('tapada', 'destapada');
 }
 
 /** Amaga la imatge d'una casella (i treu la marca d'error si en tenia). */
-export function tapar(casella) {
+function tapar(casella) {
     casella.classList.replace('destapada', 'tapada');
     casella.classList.remove('error');
 }
@@ -124,18 +124,18 @@ export function tapar(casella) {
  * @param {HTMLElement} casella
  * @param {number} durada Durada de l'efecte en ms
  */
-export function marcarError(casella, durada) {
+function marcarError(casella, durada) {
     casella.style.setProperty('--durada-error', `${durada}ms`);
     casella.classList.add('error');
 }
 
 /** Marca una casella com a part d'una parella trobada. */
-export function marcarEncertada(casella) {
+function marcarEncertada(casella) {
     casella.classList.add('encertada');
 }
 
 /** Indica si una casella ja està destapada (o encertada). */
-export function estaDestapada(casella) {
+function estaDestapada(casella) {
     return casella.classList.contains('destapada');
 }
 
@@ -143,7 +143,7 @@ export function estaDestapada(casella) {
  * Destapa totes les caselles que encara estaven tapades (fi de partida per temps).
  * @param {HTMLElement} tauler
  */
-export function revelarTot(tauler) {
+function revelarTot(tauler) {
     tauler.querySelectorAll('.casella.tapada').forEach(casella => {
         casella.classList.replace('tapada', 'destapada');
         casella.classList.add('revelada');
@@ -151,6 +151,6 @@ export function revelarTot(tauler) {
 }
 
 /** Impedeix (o permet) interactuar amb el tauler. */
-export function bloquejarTauler(tauler, bloquejat) {
+function bloquejarTauler(tauler, bloquejat) {
     tauler.classList.toggle('bloquejat', bloquejat);
 }

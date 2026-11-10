@@ -3,15 +3,6 @@
  * Estat i lògica d'una partida de Memory.
  */
 
-import { PARELLES, TEMPS_GIR, DURADA_EFECTE_ERROR } from './config.js';
-import { obtenirImatges } from './imatges.js';
-import {
-    crearParelles, pintarTauler, destapar, tapar, marcarEncertada, marcarError,
-    estaDestapada, revelarTot, bloquejarTauler,
-} from './tauler.js';
-import {
-    iniciarTemporitzador, aturarTemporitzador, obtenirSegonsRestants, formatarTemps,
-} from './temporitzador.js';
 
 // Estat de la partida
 const estat = {
@@ -30,12 +21,12 @@ let ui = null;
  * Guarda les referències als elements de la interfície.
  * @param {{tauler: HTMLElement, temps: HTMLElement, barraTemps: HTMLElement, parelles: HTMLElement, missatge: HTMLElement}} elements
  */
-export function configurarJoc(elements) {
+function configurarJoc(elements) {
     ui = elements;
 }
 
 /** Indica si hi ha una partida en curs. */
-export function partidaEnCurs() {
+function partidaEnCurs() {
     return estat.enCurs;
 }
 
@@ -43,7 +34,7 @@ export function partidaEnCurs() {
  * Comença una partida nova: obté imatges, reparteix el tauler i engega el temporitzador.
  * @param {{nom: string, segons: number}} nivell Nivell de dificultat escollit
  */
-export async function iniciarPartida(nivell) {
+async function iniciarPartida(nivell) {
     reiniciarEstat();
     mostrarMissatge('Carregant imatges...');
 
@@ -163,7 +154,7 @@ function actualitzarParelles() {
  * @param {string} text
  * @param {'info'|'exit'|'error'} tipus Classe CSS del missatge
  */
-export function mostrarMissatge(text, tipus = 'info') {
+function mostrarMissatge(text, tipus = 'info') {
     ui.missatge.textContent = text;
     ui.missatge.className = `missatge ${tipus}`;
 }
